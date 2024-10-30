@@ -1,6 +1,54 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import './Styles/variables.css'; 
+
+const SidebarLink = styled(Link)`
+  display: flex;
+  color: var(--color-primario); 
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-base);
+  list-style: none;
+  height: 65px;
+  text-decoration: none;
+  font-size: var(--font-size-heading); 
+  font-family: var(--font-primary); 
+
+  &:hover {
+    background: var(--color-terciario); 
+    border-left: 4px solid var(--color-secundario);
+    cursor: pointer;
+  }
+`;
+
+const SidebarLabel = styled.span`
+  margin-left: 16px;
+  color: var(--color-secundario); 
+  font-family: var(--font-primary); 
+  font-size: var(--font-size-base); 
+`;
+
+const DropdownLink = styled(Link)`
+  background: var(--color-terciario);
+  height: 65px;
+  padding-left: 3rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-primario); 
+  font-size: var(--font-size-heading); 
+  font-family: var(--font-primary); 
+
+  &:hover {
+    background: var(--color-secundario); 
+    cursor: pointer;
+  }
+`;
+
+/*import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 // Estilo de Menu Lateral
 const SidebarLink = styled(Link)`
@@ -39,7 +87,7 @@ const DropdownLink = styled(Link)`
     background: green;
     cursor: pointer;
   }
-`;
+`;*/
 
 // Configuración de SubMenu Lateral
 const SubMenu = ({ item }) => {

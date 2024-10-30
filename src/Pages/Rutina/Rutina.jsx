@@ -5,15 +5,15 @@ import { Modal, Paper, TextField, Button, Box, useTheme } from "@mui/material";
 import { AddBox, DeleteOutline, Edit, Password } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import Swal from "sweetalert2";
-import InputGeneral from "../Components/InputGeneral";
+import InputGeneral from "./Components/Form/InputGeneral.jsx";
 import {
   ColumnaCenter,
   Columna,
   Formulario,
   MensajeExito,
   MensajeError,
-} from "../Components/Formularios";
-import "../Styles/Cliente.modal.css";
+} from "./Components/Form/Formularios.jsx";
+import "../Styles/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,20 +21,13 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 //////////////////////////INICIA GRID INICIAL//////////////////////////
 
 const columnas = [
-  { title: "ID Cliente", field: "idCliente", hidden:true },
-  { title: "ID Entrenador", field: "idUsuario", hidden:true },
-  { title: "Nombre Entrenador", field: "nombreUsuario" },
+  { title: "ID Rutina", field: "idRutina", hidden: true},
+  { title: "ID Cliente", field: "idCliente", hidden: true },
   { title: "Nombre Cliente", field: "nombreCliente" },
-  { title: "Email", field: "email" },
-  { title: "Telefono", field: "telefono" },
-  { title: "Sexo", field: "sexo" },
-  { title: "Altura", field: "altura" },
-  { title: "Peso", field: "peso" },
-  { title: "Antecedente", field: "antecedente" },
-  { title: "Disciplina", field: "disciplina" },
-  { title: "Descripcion", field: "descripcion" },
-  { title: "Fecha de Nacimiento", field: "fechaNacimiento", hidden:true  },
-  { title: "Creado", field: "creado", hidden:true  },
+  { title: "Nombre Rutina", field: "nombreRutina" },
+  { title: "Inicia", field: "fechaInicio" },
+  { title: "Finaliza", field: "fechaFin" },
+  { title: "Creado", field: "creado" },
 ];
 
 //////////////////////////TERMINA GRID INICIAL//////////////////////////
@@ -42,7 +35,7 @@ const columnas = [
 
 //////////////////////////INICIA URLs///////////////////////////
 
-const baseUrl = "https://localhost:44366/Cliente/recCliente_PA";
+const baseUrl = "https://localhost:44366/Rutina/recRutina_PA";
 const baseUrlPost = "https://localhost:44365/api/Usuario/insUsuario";
 const baseUrlPut = "https://localhost:44365/api/Usuario/modUsuario";
 const baseUrlDel = "https://localhost:44365/api/Usuario/delUsuario";
@@ -50,7 +43,7 @@ const baseUrlDel = "https://localhost:44365/api/Usuario/delUsuario";
 
 //////////////////////////TERMINA URLs///////////////////////////
 
-const Cliente = () => {
+const Rutina = () => {
   //////////////////////////INICIA CONSTANTES - STATE///////////////////////////
 
   const [IdUsuario, cambiarIdUsuario] = useState({ campo: "", valido: null });
@@ -782,7 +775,7 @@ const Cliente = () => {
       <MaterialTable
         columns={columnas}
         data={data}
-        title="Clientes"
+        title="Rutinas"
         actions={[
           {
             icon: Edit,
@@ -834,4 +827,4 @@ const Cliente = () => {
   );
 };
 
-export default Cliente;
+export default Rutina;

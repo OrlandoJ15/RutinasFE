@@ -5,15 +5,15 @@ import { Modal, Paper, TextField, Button, Box, useTheme } from "@mui/material";
 import { AddBox, DeleteOutline, Edit, Password } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import Swal from "sweetalert2";
-import InputGeneral from "../Components/InputGeneral";
+import InputGeneral from "./Components/Form/InputGeneral.jsx";
 import {
   ColumnaCenter,
   Columna,
   Formulario,
   MensajeExito,
   MensajeError,
-} from "../Components/Formularios";
-import "../Styles/Cliente.modal.css";
+} from "./Components/Form/Formularios";
+import "../Styles/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,14 +21,13 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 //////////////////////////INICIA GRID INICIAL//////////////////////////
 
 const columnas = [
-  { title: "ID Rutina", field: "idRutina", hidden: true},
-  { title: "Nombre Rutina", field: "nombreRutina" },
-  { title: "ID Ejercicio", field: "idAccion", hidden: true },
-  { title: "Nombre Ejercicio", field: "nombreAccion" },
-  { title: "Sets", field: "setsAccion" },
-  { title: "Repeticiones", field: "repsAccion" },
-  { title: "Peso", field: "pesoAccion" },
-  { title: "ID Rutina-Ejercicio", field: "idRutinaAccion", hidden: true},
+  { title: "ID Entrenador", field: "idUsuario" },
+  { title: "Nombre", field: "nombre" },
+  { title: "Email", field: "email" },
+  { title: "Telefono", field: "telefono" },
+  { title: "Creado", field: "creado", hidden:true  },
+  { title: "Clave", field: "clave", hidden:true },
+  { title: "Rol", field: "rol", hidden:true  },
 ];
 
 //////////////////////////TERMINA GRID INICIAL//////////////////////////
@@ -36,7 +35,7 @@ const columnas = [
 
 //////////////////////////INICIA URLs///////////////////////////
 
-const baseUrl = "https://localhost:44366/RutinaAccion/recRutinaAccion_PA";
+const baseUrl = "https://localhost:44366/Usuario/recUsuario_PA";
 const baseUrlPost = "https://localhost:44365/api/Usuario/insUsuario";
 const baseUrlPut = "https://localhost:44365/api/Usuario/modUsuario";
 const baseUrlDel = "https://localhost:44365/api/Usuario/delUsuario";
@@ -44,25 +43,16 @@ const baseUrlDel = "https://localhost:44365/api/Usuario/delUsuario";
 
 //////////////////////////TERMINA URLs///////////////////////////
 
-const RutinaAccion = () => {
+const Usuario = () => {
   //////////////////////////INICIA CONSTANTES - STATE///////////////////////////
 
-  const [IdUsuario, cambiarIdUsuario] = useState({ campo: "", valido: null });
-  const [Nombre, cambiarNombre] = useState({ campo: "", valido: null });
-  const [NombreUsuario, cambiarNombreUsuario] = useState({
-    campo: "",
-    valido: null,
-  });
-  const [Rol, cambiarRol] = useState({ campo: 0, valido: null });
-  const [Correo, cambiarCorreo] = useState({ campo: "", valido: null });
-  const [Clave, cambiarClave] = useState({ campo: "", valido: null });
-
-  const [NuevaClave, cambiarNuevaClave] = useState({ campo: "", valido: null });
-  const [ConfirmarNuevaClave, cambiarConfirmarNuevaClave] = useState({
-    campo: "",
-    valido: null,
-  });
-
+  const [idUsuario, cambiaridUsuario] = useState({ campo: 0, valido: null });
+  const [nombre, cambiarnombre] = useState({ campo: "", valido: null });
+  const [email, cambiaremail] = useState({ campo: "", valido: null, });
+  const [telefono, cambiartelefono] = useState({ campo: "", valido: null });
+  const [creado, cambiarcreado] = useState({ campo: "", valido: null });
+  const [clave, cambiarclave] = useState({ campo: "", valido: null });
+  const [rol, cambiarrol] = useState({ campo: "", valido: null });
   const [formularioValido, cambiarFormularioValido] = useState(false);
 
   // const [usuarioSeleccionado, setUsuarioSeleccionado] = useState({
@@ -70,7 +60,7 @@ const RutinaAccion = () => {
   //   Nombre: "",
   //   NombreUsuario: "",
   //   Rol: "",
-  //   Correo: "",
+  //   email: "",
   //   Clave: "",
   // });
 
@@ -78,14 +68,16 @@ const RutinaAccion = () => {
 
   /////////////////////////////////////EXPRESIONES//////////////////////////////////
 
-  const expresionesRegulares = {
-    IdUsuario: /^[0-9]*$/,
-    Nombre: /^[a-zA-Z0-9_-\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    NombreUsuario: /^[a-zA-Z0-9_-\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    Rol: /^[1-9]$/, // solo numero del 1-9
-    Correo: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, //formato de correo electronico
-    Clave: /^(?=(?:.*[A-Za-z]){4,})(?=.*[A-Z])(?=(?:.*\d){4,})[A-Za-z\d]{8,}$/, //contrasena con almenos 4 letras y minimo 1 mayuscukla, 4 numeros y minimo 8 carcteres
+  const expresionesRegulares = { 
+    idUsuario: /^([1-9]|[1-9][0-9]|100)$/,
+    nombre: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    telefono: /^[0-9\s-]+$/,
+    creado: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{2}$/,
+    clave: /^[\s\S]+$/,
+    rol: /^[a-zA-Z\s]+$/,
   };
+  
 
   /////////////////////////////////////EXPRESIONES//////////////////////////////////
 
@@ -93,20 +85,22 @@ const RutinaAccion = () => {
   const onsubmitpost = (e) => {
     e.preventDefault();
     if (
-      IdUsuario.valido === "true" &&
-      Nombre.valido === "true" &&
-      NombreUsuario.valido === "true" &&
-      Rol.valido === "true" &&
-      Correo.valido === "true" &&
-      Clave.valido === "true"
+      idUsuario.valido === "true" &&
+      nombre.valido === "true" &&
+      email.valido === "true" &&
+      telefono.valido === "true" &&
+      creado.valido === "true" &&
+      clave.valido === "true" &&
+      rol.valido === "true" 
     ) {
       cambiarFormularioValido(true);
-      cambiarIdUsuario({ campo: "", valido: "" });
-      cambiarNombre({ campo: "", valido: null });
-      cambiarNombreUsuario({ campo: "", valido: null });
-      cambiarRol({ campo: "", valido: null });
-      cambiarCorreo({ campo: "", valido: null });
-      cambiarClave({ campo: "", valido: null });
+      cambiaridUsuario({ campo: "", valido: "" });
+      cambiarnombre({ campo: "", valido: null });
+      cambiaremail({ campo: "", valido: null });
+      cambiartelefono({ campo: "", valido: null });
+      cambiarcreado({ campo: "", valido: null });
+      cambiarclave({ campo: "", valido: null });
+      cambiarrol({ campo: "", valido: null });
       showQuestionPost();
     } else {
       
@@ -114,31 +108,36 @@ const RutinaAccion = () => {
     }
   };
 
-  const onsubmitput = (e) => {
+  /*const onsubmitpost = (e) => {
     e.preventDefault();
     if (
-      IdUsuario.valido === "true" &&
-      Nombre.valido === "true" &&
-      NombreUsuario.valido === "true" &&
-      Rol.valido === "true" &&
-      Correo.valido === "true"
+      idUsuario.valido === "true" &&
+      nombre.valido === "true" &&
+      email.valido === "true" &&
+      telefono.valido === "true" &&
+      creado.valido === "true" &&
+      clave.valido === "true" &&
+      rol.valido === "true" &&
     ) {
       cambiarFormularioValido(true);
-      cambiarIdUsuario({ campo: "", valido: "" });
-      cambiarNombre({ campo: "", valido: null });
-      cambiarNombreUsuario({ campo: "", valido: null });
-      cambiarRol({ campo: "", valido: null });
-      cambiarCorreo({ campo: "", valido: null });
-      showQuestionPut();
+      cambiaridUsuario({ campo: "", valido: "" });
+      cambiarnombre({ campo: "", valido: null });
+      cambiaremail({ campo: "", valido: null });
+      cambiartelefono({ campo: "", valido: null });
+      cambiarcreado({ campo: "", valido: null });
+      cambiarclave({ campo: "", valido: null });
+      cambiarrol({ campo: "", valido: null });
+      showQuestionPost();
     } else {
+      
       cambiarFormularioValido(false);
     }
-  };
+  };*/
 
   ///////////////////////////////////AXIOS FUNCIONES//////////////////////////////
 
   const endPointUsuarioXId =
-    "https://localhost:44365/api/Usuario/recUsuarioXId?pId=" + IdUsuario.campo;
+    "https://localhost:44366/Usuario/recUsuarioXId_PA/" + idUsuario.campo;
 
   ///////////////////////////////////FINALIZA AXIOS FUNCIONES//////////////////////////////
 
@@ -149,8 +148,8 @@ const RutinaAccion = () => {
       Swal.fire({
         icon: "error",
         //iconHtml: "<FontAwesomeIcon icon={faExclamationTriangle} />",
-        title: "Cuidado",
-        text: "Codigo Usuario Existente, Intente Nevamente",
+        title: "Importante",
+        text: "El codigo de entrenador ya existe.",
         // customClass: {
         //   icon: 'no-icon',
         // },
@@ -161,9 +160,9 @@ const RutinaAccion = () => {
       await axios.get(endPointUsuarioXId).then((response) => {
         const data = response.data;
         if (data === null) {
-          cambiarIdUsuario({ campo: IdUsuario.campo, valido: "true" });
+          cambiaridUsuario({ campo: idUsuario.campo, valido: "true" });
         } else {
-          cambiarIdUsuario({ campo: "", valido: "false" });
+          cambiaridUsuario({ campo: "", valido: "false" });
           showError();
         }
       });
@@ -199,7 +198,7 @@ const RutinaAccion = () => {
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
-  const [modalCambioClave, setModalCambioClave] = useState(false);
+  /*const [modalCambioClave, setModalCambioClave] = useState(false);*/
 
   //////////////////////////////// FINALIZA CONSTANTES MODAL/////////////////////////////////
 
@@ -207,7 +206,7 @@ const RutinaAccion = () => {
 
   function showQuestionPost() {
     Swal.fire({
-      title: "Desea Guardar Los Cambios Efectuados?",
+      title: "¿Desea guardar estos cambios?",
       showDenyButton: true,
       confirmButtonText: "Guardar",
       denyButtonText: "Cancelar",
@@ -217,7 +216,7 @@ const RutinaAccion = () => {
         peticionPost();
         //peticionPostKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios No Guardados", "", "info");
+        Swal.fire("La acción se canceló", "", "info");
       }
     });
   }
@@ -241,12 +240,13 @@ const RutinaAccion = () => {
 
   const peticionPost = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUSuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
-      Clave: Clave.campo,
+      idUsuario: idUsuario.campo,
+      nombre: nombre.campo,
+      email: email.campo,
+      telefono: telefono.campo,
+      creado: creado.campo,
+      clave: clave.campo,
+      rol: rol.campo,
     };
 
     await axios
@@ -268,9 +268,9 @@ const RutinaAccion = () => {
   //REVISAR LAS COMILLAS
   function showQuestionPut() {
     Swal.fire({
-      title: "Desea Guardar Los Cambios Efectuados?",
+      title: "¿Desea guardar estos cambios?",
       showDenyButton: true,
-      confirmButtonText: "Editar",
+      confirmButtonText: "Aceptar",
       denyButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -285,11 +285,13 @@ const RutinaAccion = () => {
 
   const peticionPut = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUsuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
+      idUsuario: idUsuario.campo,
+      nombre: nombre.campo,
+      email: email.campo,
+      telefono: telefono.campo,
+      creado: creado.campo,
+      clave: clave.campo,
+      rol: rol.campo,
     };
 
     await axios
@@ -298,11 +300,13 @@ const RutinaAccion = () => {
       .then((response) => {
         var dataNueva = data;
         dataNueva.map((Usuario) => {
-          if (Usuario.IdUsuario === options.IdUsuario) {
-            Usuario.Nombre = options.Nombre;
-            Usuario.NombreUsuario = options.NombreUsuario;
-            Usuario.Rol = options.Rol;
-            Usuario.Correo = options.Correo;
+          if (Usuario.idUsuario === options.idUsuario) {
+            Usuario.nombre = options.nombre;
+            Usuario.email = options.email;
+            Usuario.telefono = options.telefono;
+            Usuario.creado = options.creado;
+            Usuario.clave = options.clave;
+            Usuario.rol = options.rol;
           }
           return dataNueva;
         });
@@ -321,12 +325,13 @@ const RutinaAccion = () => {
 
   const peticionDelete = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUsuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
-      Clave: Clave.campo,
+      idUsuario: idUsuario.campo,
+      nombre: nombre.campo,
+      email: email.campo,
+      telefono: telefono.campo,
+      creado: creado.campo,
+      clave: clave.campo,
+      rol: rol.campo,
     };
 
     const payload = {
@@ -338,7 +343,7 @@ const RutinaAccion = () => {
       .delete(baseUrlDel, payload)
       .then((response) => {
         setData(
-          data.filter((Usuario) => Usuario.IdUsuario !== options.IdUsuario)
+          data.filter((Usuario) => Usuario.idUsuario !== options.idUsuario)
         );
         abrirCerrarModalEliminar();
       })
@@ -356,11 +361,13 @@ const RutinaAccion = () => {
       console.log({ usuario });
     }
     const XUsuario = Object.values(...usuario);
-    cambiarIdUsuario({ campo: XUsuario[0], valido: "true" });
-    cambiarNombre({ campo: XUsuario[1], valido: "true" });
-    cambiarNombreUsuario({ campo: XUsuario[2], valido: "true" });
-    cambiarRol({ campo: XUsuario[3], valido: "true" });
-    cambiarCorreo({ campo: XUsuario[4], valido: "true" });
+    cambiaridUsuario({ campo: XUsuario[0], valido: "true" });
+    cambiarnombre({ campo: XUsuario[1], valido: "true" });
+    cambiaremail({ campo: XUsuario[2], valido: "true" });
+    cambiartelefono({ campo: XUsuario[3], valido: "true" });
+    cambiarcreado({ campo: XUsuario[4], valido: "true" });
+    cambiarclave({ campo: XUsuario[5], valido: "true" });
+    cambiarrol({ campo: XUsuario[6], valido: "true" });
     console.log({ XUsuario });
     caso === "Editar" ? abrirCerrarModalEditar() : abrirCerrarModalEliminar();
   };
@@ -395,9 +402,9 @@ const RutinaAccion = () => {
     setModalEliminar(!modalEliminar);
   };
 
-  const abrirCerrarModalCambioClave = () => {
+  /*const abrirCerrarModalCambioClave = () => {
     setModalCambioClave(!modalCambioClave);
-  };
+  };*/
 
   //////////////////////////MODALES////////////////////////
 
@@ -452,7 +459,7 @@ const RutinaAccion = () => {
 
   const bodyInsertar = (
     <div style={scrollVertical}>
-      <h3>Incluir Usuario v2</h3>
+      <h3>Agregar Entrenador</h3>
       <div className="relleno-general">
         {" "}
         General
@@ -460,71 +467,64 @@ const RutinaAccion = () => {
           <Formulario>
             <Columna>
               <InputGeneral
-                estado={IdUsuario}
-                cambiarEstado={cambiarIdUsuario}
+                estado={nombre}
+                cambiarEstado={cambiarnombre}
                 tipo="text"
-                label="Id Usuario"
-                placeholder="Introduzca Id Del Usuario"
-                name="IdUsuario"
-                leyendaError="El Id Del Usuario solo puede contener numeros."
-                expresionRegular={expresionesRegulares.IdUsuario}
-                onChange={ValidarExistenciaUsuarioId}
-                onBlur={ValidarExistenciaUsuarioId}
-                autofocus
+                label="nombre"
+                placeholder="Introduzca el nombre del entrenador"
+                name="nombre"
+                leyendaError="El nombre solo puede contener letras y espacios."
+                expresionRegular={expresionesRegulares.nombre}
               />
               <InputGeneral
-                estado={Nombre}
-                cambiarEstado={cambiarNombre}
-                tipo="text"
-                label="Nombre"
-                placeholder="Introduzca El Nombre"
-                name="Nombre"
-                leyendaError="El Nombre solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.Nombre}
-              />
-
-              <InputGeneral
-                estado={NombreUsuario}
-                cambiarEstado={cambiarNombreUsuario}
-                tipo="text"
-                label="Nombre De Usuario"
-                placeholder="Introduzca El Nombre De Usuario"
-                name="NombreUsuario"
-                leyendaError="El Nombre del Usuario solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.NombreUsuario}
-              />
-
-              <InputGeneral
-                estado={Rol}
-                cambiarEstado={cambiarRol}
-                tipo="number"
-                label="Rol"
-                placeholder="Introduzca El Rol"
-                name="Rol"
-                leyendaError="El rol solo puede contener numeros"
-                expresionRegular={expresionesRegulares.Rol}
-              />
-
-              <InputGeneral
-                estado={Correo}
-                cambiarEstado={cambiarCorreo}
+                estado={email}
+                cambiarEstado={cambiaremail}
                 tipo="email"
-                label="Correo"
-                placeholder="Introduzca El Correo Electronico"
-                name="Correo"
-                leyendaError="El Formato Del Correo No Es Valido"
-                expresionRegular={expresionesRegulares.Correo}
+                label="email"
+                placeholder="Introduzca el correo electronico"
+                name="email"
+                leyendaError="El email debe incluir @"
+                expresionRegular={expresionesRegulares.email}
               />
-
               <InputGeneral
-                estado={Clave}
-                cambiarEstado={cambiarClave}
+                estado={telefono}
+                cambiarEstado={cambiartelefono}
+                tipo="number"
+                label="telefono"
+                placeholder="Introduzca el teléfono del entrenador"
+                name="telefono"
+                leyendaError="Número de telefono en formato 1234-1234."
+                expresionRegular={expresionesRegulares.telefono}
+              />
+              <InputGeneral
+                estado={clave}
+                cambiarEstado={""}
                 tipo="password"
-                label="Clave"
-                placeholder="Introduzca La Contrasena"
-                name="Clave"
-                leyendaError="La contrasena debe contener minimo 8 caracteres"
-                expresionRegular={expresionesRegulares.Clave}
+                label="clave"
+                placeholder="Introduzca su contraseña"
+                name="clave"
+                leyendaError="La contraseña debe contener minimo 8 caracteres"
+                expresionRegular={expresionesRegulares.clave}
+              />
+              <InputGeneral
+                estado={rol}
+                cambiarEstado={cambiarrol}
+                tipo="text"
+                label="rol"
+                placeholder="Introduzca su rol"
+                name="rol"
+                leyendaError="El rol solo puede contener letras"
+                expresionRegular={expresionesRegulares.rol}
+              />
+              <InputGeneral
+                estado={creado}
+                cambiarEstado={cambiarcreado}
+                tipo="date"
+                label="creado"
+                placeholder="Fecha de creación del usuario"
+                name="creado"
+                leyendaError="Inserte una fecha valida"
+                expresionRegular={expresionesRegulares.creado}
               />
             </Columna>
           </Formulario>
@@ -550,7 +550,7 @@ const RutinaAccion = () => {
           Insertar
         </Button>
         {formularioValido === true && (
-          <MensajeExito>Formulario enviado exitosamente!</MensajeExito>
+          <MensajeExito>Entrenador agregado exitosamente!</MensajeExito>
         )}
       </div>
     </div>
@@ -558,58 +558,61 @@ const RutinaAccion = () => {
 
   const bodyEditar = (
     <div style={scrollVertical}>
-      <h3>Editar Usuario v2</h3>
+      <h3>Edite el entrenador</h3>
       <div className="relleno-general">
         General
         <div className="container-fluid">
           <Formulario>
             <Columna>
-              <InputGeneral
-                estado={Nombre}
-                cambiarEstado={cambiarNombre}
+            <InputGeneral
+                estado={nombre}
+                cambiarEstado={cambiarnombre}
                 tipo="text"
-                label="Nombre"
-                placeholder="Introduzca El Nombre"
-                name="Nombre"
-                leyendaError="El Nombre solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.Nombre}
-                value={Nombre.campo}
+                label="nombre"
+                placeholder="Introduzca el nombre del entrenador"
+                name="nombre"
+                leyendaError="El nombre solo puede contener letras y espacios."
+                expresionRegular={expresionesRegulares.nombre}
               />
-
               <InputGeneral
-                estado={NombreUsuario}
-                cambiarEstado={cambiarNombreUsuario}
-                tipo="text"
-                label="Nombre De Usuario"
-                placeholder="Introduzca El Nombre De Usuario"
-                name="NombreUsuario"
-                leyendaError="El Nombre del Usuario solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.NombreUsuario}
-                value={NombreUsuario.campo}
-              />
-
-              <InputGeneral
-                estado={Rol}
-                cambiarEstado={cambiarRol}
-                tipo="number"
-                label="Rol"
-                placeholder="Introduzca El Rol"
-                name="Rol"
-                leyendaError="El rol solo puede contener números"
-                expresionRegular={expresionesRegulares.Rol}
-                value={Rol.campo}
-              />
-
-              <InputGeneral
-                estado={Correo}
-                cambiarEstado={cambiarCorreo}
+                estado={email}
+                cambiarEstado={cambiaremail}
                 tipo="email"
-                label="Correo"
-                placeholder="Introduzca El Correo Electrónico"
-                name="Correo"
-                leyendaError="El Formato Del Correo No Es Válido"
-                expresionRegular={expresionesRegulares.Correo}
-                value={Correo.campo}
+                label="email"
+                placeholder="Introduzca El email Electronico"
+                name="email"
+                leyendaError="El Formato Del email No Es Valido"
+                expresionRegular={expresionesRegulares.email}
+              />
+              <InputGeneral
+                estado={telefono}
+                cambiarEstado={cambiartelefono}
+                tipo="number"
+                label="telefono"
+                placeholder="Introduzca el teléfono del entrenador"
+                name="telefono"
+                leyendaError="El teléfono solo puede contener letras y espacios."
+                expresionRegular={expresionesRegulares.telefono}
+              />
+              <InputGeneral
+                estado={clave}
+                cambiarEstado={""}
+                tipo="password"
+                label="clave"
+                placeholder="Introduzca su contraseña"
+                name="clave"
+                leyendaError="La contraseña debe contener minimo 8 caracteres"
+                expresionRegular={expresionesRegulares.clave}
+              />
+              <InputGeneral
+                estado={rol}
+                cambiarEstado={cambiarrol}
+                tipo="text"
+                label="rol"
+                placeholder="Introduzca su rol"
+                name="rol"
+                leyendaError="El rol solo puede contener letras"
+                expresionRegular={expresionesRegulares.rol}
               />
             </Columna>
           </Formulario>
@@ -626,7 +629,7 @@ const RutinaAccion = () => {
 
       <div align="right">
         <Button onClick={() => abrirCerrarModalEditar()}> Cancelar </Button>
-        <Button color="primary" onClick={onsubmitput}>
+        <Button color="primary" onClick={""}>
           Editar
         </Button>
       </div>
@@ -635,7 +638,7 @@ const RutinaAccion = () => {
 
   function showQuestionDel() {
     Swal.fire({
-      title: "Seguro que desea Eliminar el Usuario?",
+      title: "¿Deseas eliminar este entrenador?",
       showDenyButton: true,
       confirmButtonText: "Eliminar",
       denyButtonText: `Cancelar`,
@@ -646,25 +649,30 @@ const RutinaAccion = () => {
         peticionDelete();
         //peticionDeleteKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios NO Guardados", "", "info");
+        Swal.fire("La acción se canceló", "", "info");
       }
     });
   }
 
   const bodyEliminar = (
     <div style={scrollVertical}>
-      <h3>Eliminar Usuario</h3>
+      <h3>Eliminar entrenador</h3>
       <div className="relleno-general">
         {" "}
         General
         <div className="container-fluid">
           <Formulario>
             <Columna>
-              <h4>Codigo: {IdUsuario.campo}</h4>
-              <h4>Nombre: {Nombre.campo}</h4>
-              <h4>Nombre De Usuario: {NombreUsuario.campo}</h4>
-              <h4>Rol: {Rol.campo}</h4>
-              <h4>Correo: {Correo.campo}</h4>
+            <InputGeneral
+                estado={idUsuario}
+                cambiarEstado={cambiaridUsuario}
+                tipo="number"
+                label="idUsuario"
+                placeholder="Introduzca el código del entrenador"
+                name="idUsuario"
+                leyendaError="El código no existe"
+                expresionRegular={expresionesRegulares.idUsuario}
+              />
             </Columna>
           </Formulario>
         </div>
@@ -682,24 +690,24 @@ const RutinaAccion = () => {
     </div>
   );
 
-  function showQuestionCambioClave() {
+  /*function showQuestionCambioClave() {
     Swal.fire({
       title: "Seguro que desea Cambiar la Clave?",
       showDenyButton: true,
       confirmButtonText: "Eliminar",
       denyButtonText: `Cancelar`,
-    }).then((result) => {
+    }).then((result) => {*/
       /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
+      /*if (result.isConfirmed) {
         Swal.fire("Cambiada Correctamente!", "", "success");
         //aqui va el metodo para cambiar la contrasena
       } else if (result.isDenied) {
         Swal.fire("Cambios NO Guardados", "", "info");
       }
     });
-  }
+  }*/
 
-  const bodyCambioClave = (
+  /*const bodyCambioClave = (
     <div style={scrollVertical}>
       <div className="relleno-general">
         <div className="container-fluid">
@@ -707,7 +715,7 @@ const RutinaAccion = () => {
             <ColumnaCenter>
               <InputGeneral
                 estado={Clave}
-                cambiarEstado={cambiarClave}
+                cambiarEstado={""}
                 tipo="password"
                 label="Contraseña Actual"
                 placeholder="Introduzca la contraseña actual"
@@ -754,7 +762,7 @@ const RutinaAccion = () => {
         </Button>
       </div>
     </div>
-  );
+  );*/
 
   return (
     <div className="Cliente">
@@ -776,7 +784,7 @@ const RutinaAccion = () => {
       <MaterialTable
         columns={columnas}
         data={data}
-        title="Detalle de Rutinas"
+        title="Usuarios"
         actions={[
           {
             icon: Edit,
@@ -821,11 +829,8 @@ const RutinaAccion = () => {
       <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar}>
         {bodyEliminar}
       </Modal>
-      <Modal open={modalCambioClave} onClose={abrirCerrarModalCambioClave}>
-        {bodyCambioClave}
-      </Modal>
     </div>
   );
 };
 
-export default RutinaAccion;
+export default Usuario;

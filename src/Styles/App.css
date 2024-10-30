@@ -1,6 +1,7 @@
 #root {
   max-width: fixed;
   text-align: center;
+  font-size: var(--font-size-base);
 }
 
 .logo {

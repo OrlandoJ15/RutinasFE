@@ -5,6 +5,13 @@
   float: right;
 }
 
+.btn-cancelar{
+  background-color: #fa0202; /* Green */
+  color: white;
+  border-radius: 12px;
+  float: right;
+}
+
 .MuiTableCell-root{
   width: auto-fit;
   height: auto-fit;
@@ -52,8 +59,24 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-.banner{
-  background-color:cadetblue;
+.branding1{
+  background-color: var(--color-primario);
+}
+
+.branding2{
+  background-color:black;
+}
+
+.h1{
+  background-color:black;
+}
+
+.h2{
+  background-color:black;
+}
+
+.h3{
+  background-color:black;
 }
 
 .relleno-general{
@@ -86,4 +109,6 @@
   padding-bottom: 1rem;
   font-weight: bold;
 }
+
+
 

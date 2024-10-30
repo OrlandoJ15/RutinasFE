@@ -5,15 +5,15 @@ import { Modal, Paper, TextField, Button, Box, useTheme } from "@mui/material";
 import { AddBox, DeleteOutline, Edit, Password } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import Swal from "sweetalert2";
-import InputGeneral from "../Components/InputGeneral";
+import InputGeneral from "./Components/Form/InputGeneral.jsx";
 import {
   ColumnaCenter,
   Columna,
   Formulario,
   MensajeExito,
   MensajeError,
-} from "../Components/Formularios";
-import "../Styles/Cliente.modal.css";
+} from "./Components/Form/Formularios.jsx";
+import "../Styles/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,13 +21,14 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 //////////////////////////INICIA GRID INICIAL//////////////////////////
 
 const columnas = [
-  { title: "ID Entrenador", field: "idUsuario" },
-  { title: "Nombre", field: "nombre" },
-  { title: "Email", field: "email" },
-  { title: "Telefono", field: "telefono" },
-  { title: "Creado", field: "creado", hidden:true  },
-  { title: "Clave", field: "clave", hidden:true },
-  { title: "Rol", field: "rol", hidden:true  },
+  { title: "ID Rutina", field: "idRutina", hidden: true},
+  { title: "Nombre Rutina", field: "nombreRutina" },
+  { title: "ID Ejercicio", field: "idAccion", hidden: true },
+  { title: "Nombre Ejercicio", field: "nombreAccion" },
+  { title: "Sets", field: "setsAccion" },
+  { title: "Repeticiones", field: "repsAccion" },
+  { title: "Peso", field: "pesoAccion" },
+  { title: "ID Rutina-Ejercicio", field: "idRutinaAccion", hidden: true},
 ];
 
 //////////////////////////TERMINA GRID INICIAL//////////////////////////
@@ -35,7 +36,7 @@ const columnas = [
 
 //////////////////////////INICIA URLs///////////////////////////
 
-const baseUrl = "https://localhost:44366/Usuario/recUsuario_PA";
+const baseUrl = "https://localhost:44366/RutinaAccion/recRutinaAccion_PA";
 const baseUrlPost = "https://localhost:44365/api/Usuario/insUsuario";
 const baseUrlPut = "https://localhost:44365/api/Usuario/modUsuario";
 const baseUrlDel = "https://localhost:44365/api/Usuario/delUsuario";
@@ -43,7 +44,7 @@ const baseUrlDel = "https://localhost:44365/api/Usuario/delUsuario";
 
 //////////////////////////TERMINA URLs///////////////////////////
 
-const Usuario = () => {
+const RutinaAccion = () => {
   //////////////////////////INICIA CONSTANTES - STATE///////////////////////////
 
   const [IdUsuario, cambiarIdUsuario] = useState({ campo: "", valido: null });
@@ -525,8 +526,6 @@ const Usuario = () => {
                 leyendaError="La contrasena debe contener minimo 8 caracteres"
                 expresionRegular={expresionesRegulares.Clave}
               />
-
-              
             </Columna>
           </Formulario>
         </div>
@@ -777,7 +776,7 @@ const Usuario = () => {
       <MaterialTable
         columns={columnas}
         data={data}
-        title="Usuarios"
+        title="Detalle de Rutinas"
         actions={[
           {
             icon: Edit,
@@ -829,4 +828,4 @@ const Usuario = () => {
   );
 };
 
-export default Usuario;
+export default RutinaAccion;

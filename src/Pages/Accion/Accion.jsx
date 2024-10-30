@@ -5,15 +5,15 @@ import { Modal, Paper, TextField, Button, Box, useTheme } from "@mui/material";
 import { AddBox, DeleteOutline, Edit, Password } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import Swal from "sweetalert2";
-import InputGeneral from "../Components/InputGeneral";
+import InputGeneral from "./Components/Form/InputGeneral.jsx";
 import {
   ColumnaCenter,
   Columna,
-  Formulario,
+  Formulario1,
   MensajeExito,
   MensajeError,
-} from "../Components/Formularios";
-import "../Styles/Cliente.modal.css";
+} from "./Components/Form/Formularios";
+import "../Styles/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
@@ -23,7 +23,7 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 const columnas = [
   { title: "ID Ejercicio", field: "idAccion", hidden: true },
   { title: "Nombre Ejercicio", field: "nombreAccion" },
-  { title: "Grupo de Musculo", field: "grupoMusculo" },
+  { title: "Grupo Musculo", field: "grupoMusculo" },
   { title: "Descripcion", field: "descripcion" },
   { title: "Creado", field: "creado" },
 ];
@@ -44,7 +44,7 @@ const baseUrlDel = "https://localhost:44365/api/Usuario/delUsuario";
 const Accion = () => {
   //////////////////////////INICIA CONSTANTES - STATE///////////////////////////
 
-  const [IdAccion, cambiarIdAccion] = useState({ campo: 0, valido: null });
+  const [idAccion, cambiaridAccion] = useState({ campo: 0, valido: null });
   const [nombreAccion, cambiarnombreAccion] = useState({ campo: "", valido: null });
   const [grupoMusculo, cambiargrupoMusculo] = useState({campo: "",valido: null,});
   const [descripcion, cambiardescripcion] = useState({ campo: "", valido: null });
@@ -52,7 +52,7 @@ const Accion = () => {
   const [formularioValido, cambiarFormularioValido] = useState(false);
 
   const [accionSeleccionado, setAccionSeleccionado] = useState({
-  IdAccion: "",
+  idAccion: "",
   nombreAccion: "",
   grupoMusculo: "",
   descripcion: "",
@@ -64,11 +64,11 @@ const Accion = () => {
   /////////////////////////////////////EXPRESIONES//////////////////////////////////
 
   const expresionesRegulares = {
-    IdAccion: /^[0-100]*$/,
+    idAccion: /^[0-100]*$/,
     nombreAccion: /^[A-Za-z\s]+$/, 
     grupoMusculo: /^[A-Za-z\s]+$/, 
     descripcion: /^[A-Za-z0-9.,;:!?()\s]+$/, 
-    creado: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{2}$/, 
+    creado: /^([0-2][0-9]|(3)[0-1])\/(0[1-9]|1[0-2])\/\d{4}$/,    ///^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{2}$/,   
       };
   /////////////////////////////////////EXPRESIONES//////////////////////////////////
 
@@ -76,14 +76,14 @@ const Accion = () => {
   /*const onsubmitpost = (e) => {
     e.preventDefault();
     if (
-      IdAccion.valido === "true" &&
+      idAccion.valido === "true" &&
       nombreAccion.valido === "true" &&
       grupoMusculo.valido === "true" &&
       descripcion.valido === "true" &&
       creado.valido === "true"
     ) {
       cambiarFormularioValido(true);
-      cambiarIdAccion({ campo: "", valido: "" });
+      cambiaridAccion({ campo: "", valido: "" });
       cambiarnombreAccion({ campo: "", valido: null });
       cambiargrupoMusculo({ campo: "", valido: null });
       cambiardescripcion({ campo: "", valido: null });
@@ -98,14 +98,14 @@ const Accion = () => {
   /*const onsubmitpost = (e) => {
     e.preventDefault();
     if (
-      IdAccion.valido === "true" &&
+      idAccion.valido === "true" &&
       nombreAccion.valido === "true" &&
       grupoMusculo.valido === "true" &&
       descripcion.valido === "true" &&
       creado.valido === "true"
     ) {
       cambiarFormularioValido(true);
-      cambiarIdAccion({ campo: "", valido: "" });
+      cambiaridAccion({ campo: "", valido: "" });
       cambiarnombreAccion({ campo: "", valido: null });
       cambiargrupoMusculo({ campo: "", valido: null });
       cambiardescripcion({ campo: "", valido: null });
@@ -120,7 +120,7 @@ const Accion = () => {
   ///////////////////////////////////AXIOS FUNCIONES//////////////////////////////
 
   const endPointAccionXId =
-    "https://localhost:44366/Accion/recAccionXId_PA/" + IdAccion.campo;
+    "https://localhost:44366/Accion/recAccionXId_PA/" + idAccion.campo;
 
   ///////////////////////////////////FINALIZA AXIOS FUNCIONES//////////////////////////////
 
@@ -143,9 +143,9 @@ const Accion = () => {
       await axios.get(endPointAccionXId).then((response) => {
         const data = response.data;
         if (data === null) {
-          cambiarIdAccion({ campo: IdAccion.campo, valido: "true" });
+          cambiaridAccion({ campo: idAccion.campo, valido: "true" });
         } else {
-          cambiarIdAccion({ campo: "", valido: "false" });
+          cambiaridAccion({ campo: "", valido: "false" });
           showError();
         }
       });
@@ -188,7 +188,7 @@ const Accion = () => {
 
   function showQuestionPost() {
     Swal.fire({
-      title: "Desea Guardar Los Cambios Efectuados?",
+      title: "¿Desea guardar los cambios?",
       showDenyButton: true,
       confirmButtonText: "Guardar",
       denyButtonText: "Cancelar",
@@ -222,12 +222,11 @@ const Accion = () => {
 
   const peticionPost = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUSuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
-      Clave: Clave.campo,
+      idAccion: idAccion.campo,
+      nombreAccion: nombreAccion.campo,
+      grupoMusculo: grupoMusculo.campo,
+      descripcion: descripcion.campo,
+      creado: creado.campo,
     };
 
     await axios
@@ -249,7 +248,7 @@ const Accion = () => {
   //REVISAR LAS COMILLAS
   function showQuestionPut() {
     Swal.fire({
-      title: "Desea Guardar Los Cambios Efectuados?",
+      title: "¿Desea guardar los cambios?",
       showDenyButton: true,
       confirmButtonText: "Editar",
       denyButtonText: "Cancelar",
@@ -266,11 +265,11 @@ const Accion = () => {
 
   const peticionPut = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUsuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
+      idAccion: idAccion.campo,
+      nombreAccion: nombreAccion.campo,
+      grupoMusculo: grupoMusculo.campo,
+      descripcion: descripcion.campo,
+      creado: creado.campo,
     };
 
     await axios
@@ -278,12 +277,13 @@ const Accion = () => {
       .put(baseUrlPut, options)
       .then((response) => {
         var dataNueva = data;
-        dataNueva.map((Usuario) => {
-          if (Usuario.IdUsuario === options.IdUsuario) {
-            Usuario.Nombre = options.Nombre;
-            Usuario.NombreUsuario = options.NombreUsuario;
-            Usuario.Rol = options.Rol;
-            Usuario.Correo = options.Correo;
+        dataNueva.map((Accion) => {
+          if (Accion.idAccion === options.idAccion) {
+            Accion.idAccion = options.idAccion;
+            Accion.nombreAccion = options.nombreAccion;
+            Accion.grupoMusculo = options.grupoMusculo;
+            Accion.descripcion = options.descripcion;
+            Accion.creado = options.creado;
           }
           return dataNueva;
         });
@@ -302,12 +302,11 @@ const Accion = () => {
 
   const peticionDelete = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUsuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
-      Clave: Clave.campo,
+      idAccion: idAccion.campo,
+      nombreAccion: nombreAccion.campo,
+      grupoMusculo: grupoMusculo.campo,
+      descripcion: descripcion.campo,
+      creado: creado.campo,
     };
 
     const payload = {
@@ -319,7 +318,7 @@ const Accion = () => {
       .delete(baseUrlDel, payload)
       .then((response) => {
         setData(
-          data.filter((Usuario) => Usuario.IdUsuario !== options.IdUsuario)
+          data.filter((Accion) => Accion.idAccion !== options.idAccion)
         );
         abrirCerrarModalEliminar();
       })
@@ -332,17 +331,17 @@ const Accion = () => {
 
   //////////////////////////PETICION SELECT////////////////////////
 
-  const seleccionarUsuario = async (usuario, caso) => {
-    if (usuario && typeof usuario === "object") {
-      console.log({ usuario });
+  const seleccionarAccion = async (Accion, caso) => {
+    if (Accion && typeof Accion === "object") {
+      console.log({ Accion });
     }
-    const XUsuario = Object.values(...usuario);
-    cambiarIdUsuario({ campo: XUsuario[0], valido: "true" });
-    cambiarNombre({ campo: XUsuario[1], valido: "true" });
-    cambiarNombreUsuario({ campo: XUsuario[2], valido: "true" });
-    cambiarRol({ campo: XUsuario[3], valido: "true" });
-    cambiarCorreo({ campo: XUsuario[4], valido: "true" });
-    console.log({ XUsuario });
+    const XAccion = Object.values(...Accion);
+    cambiaridAccion({ campo: XAccion[0], valido: "true" });
+    cambiarnombreAccion({ campo: XAccion[1], valido: "true" });
+    cambiargrupoMusculo({ campo: XAccion[2], valido: "true" });
+    cambiardescripcion({ campo: XAccion[3], valido: "true" });
+    cambiarcreado({ campo: XAccion[4], valido: "true" });
+    console.log({ XAccion });
     caso === "Editar" ? abrirCerrarModalEditar() : abrirCerrarModalEliminar();
   };
 
@@ -354,7 +353,7 @@ const Accion = () => {
 
   useEffect(() => {
     peticionGet();
-  }, []);
+  }, [data]);
 
   //////////////////////////FINALIZA PETICION SELECT////////////////////////
 
@@ -433,12 +432,13 @@ const Accion = () => {
 
   const bodyInsertar = (
     <div style={scrollVertical}>
+      <header></header>
       <h3>Agregar Ejercicio</h3>
       <div className="relleno-general">
         {" "}
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
               <InputGeneral
                 estado={nombreAccion}
@@ -453,8 +453,47 @@ const Accion = () => {
                 onBlur={""}
                 autofocus
               />
+              <InputGeneral
+                estado={grupoMusculo}
+                cambiarEstado={cambiargrupoMusculo}
+                tipo="text"
+                label="Grupo Musculo"
+                placeholder="Introduzca el grupo de musculo"
+                name="grupoMusculo"
+                leyendaError="Solamente puede contener letras."
+                expresionRegular={expresionesRegulares.grupoMusculo}
+                onChange={""}
+                onBlur={""}
+                autofocus
+              />
+              <InputGeneral
+                estado={descripcion}
+                cambiarEstado={cambiardescripcion}
+                tipo="text"
+                label="Descripción"
+                placeholder="Introduzca la descripción del ejercicio"
+                name="descripcion"
+                leyendaError="Solamente puede contener letras, numeros y signos de puntuación."
+                expresionRegular={expresionesRegulares.descripcion}
+                onChange={""}
+                onBlur={""}
+                autofocus
+              />
+              <InputGeneral
+                estado={creado}
+                cambiarEstado={cambiarcreado}
+                tipo="date"
+                label="Creado"
+                placeholder="Fecha de creación del ejercicio"
+                name="creado"
+                leyendaError="Por favor usar formato de calendario DD/MM/YY."
+                expresionRegular={expresionesRegulares.creado}
+                onChange={""}
+                onBlur={""}
+                autofocus
+              />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
 
@@ -462,22 +501,26 @@ const Accion = () => {
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena el formulario correctamente.
+            <b>Error:</b> Por favor rellena todos los datos correctamente.
           </p>
         </MensajeError>
       )}
 
       <div align="right">
-        <Button color="success" onClick={() => abrirCerrarModalInsertar()}>
+      <div className="btn-cancelar">
+        <Button onClick={() => abrirCerrarModalInsertar()}>
           {" "}
           Cancelar{" "}
         </Button>
-        <Button color="success" onClick={""} type="submit">
+        </div>
+        <div className="btn-agrega">
+        <Button onClick={""} type="submit">
           {" "}
-          Insertar
+          Agregar
         </Button>
+        </div>
         {formularioValido === true && (
-          <MensajeExito>Formulario enviado exitosamente!</MensajeExito>
+          <MensajeExito>Ejercicio agregado exitosamente!</MensajeExito>
         )}
       </div>
     </div>
@@ -485,11 +528,11 @@ const Accion = () => {
 
   const bodyEditar = (
     <div style={scrollVertical}>
-      <h3>Editar Usuario v2</h3>
+      <h3>Editar Ejercicio</h3>
       <div className="relleno-general">
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
             <InputGeneral
                 estado={nombreAccion}
@@ -504,8 +547,34 @@ const Accion = () => {
                 onBlur={""}
                 autofocus
               />
+              <InputGeneral
+                estado={grupoMusculo}
+                cambiarEstado={cambiargrupoMusculo}
+                tipo="text"
+                label="Grupo Musculo"
+                placeholder="Introduzca el grupo de musculo"
+                name="grupoMusculo"
+                leyendaError="Solamente puede contener letras."
+                expresionRegular={expresionesRegulares.grupoMusculo}
+                onChange={""}
+                onBlur={""}
+                autofocus
+              />
+              <InputGeneral
+                estado={descripcion}
+                cambiarEstado={cambiardescripcion}
+                tipo="text"
+                label="Descripción"
+                placeholder="Introduzca la descripción del ejercicio"
+                name="descripcion"
+                leyendaError="Solamente puede contener letras, numeros y signos de puntuación."
+                expresionRegular={expresionesRegulares.descripcion}
+                onChange={""}
+                onBlur={""}
+                autofocus
+              />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
       {formularioValido === false && (
@@ -528,18 +597,18 @@ const Accion = () => {
 
   function showQuestionDel() {
     Swal.fire({
-      title: "Seguro que desea Eliminar el Usuario?",
+      title: "¿Seguro que deseas eliminar el ejercicio?",
       showDenyButton: true,
       confirmButtonText: "Eliminar",
       denyButtonText: `Cancelar`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire("Eliminado Correctamente!", "", "success");
+        Swal.fire("Ejercicio eliminado!", "", "success");
         peticionDelete();
         //peticionDeleteKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios NO Guardados", "", "info");
+        Swal.fire("Se canceló la acción", "", "info");
       }
     });
   }
@@ -551,9 +620,22 @@ const Accion = () => {
         {" "}
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
             <InputGeneral
+                estado={idAccion}
+                cambiarEstado={cambiaridAccion}
+                tipo="number"
+                label="Codigo de ejercicio"
+                placeholder="Introduzca codigo del ejercicio"
+                name="idAccion"
+                leyendaError="Solamente puede contener números."
+                expresionRegular={expresionesRegulares.idAccion}
+                onChange={""}
+                onBlur={""}
+                autofocus
+              />
+              <InputGeneral
                 estado={nombreAccion}
                 cambiarEstado={cambiarnombreAccion}
                 tipo="text"
@@ -567,7 +649,7 @@ const Accion = () => {
                 autofocus
               />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
 
@@ -608,13 +690,13 @@ const Accion = () => {
           {
             icon: Edit,
             tooltip: "Modificar Ejercicio",
-            onClick: (event, rowData) => seleccionarUsuario(rowData, "Editar"),
+            onClick: (event, rowData) => seleccionarAccion(rowData, "Editar"),
           },
           {
             icon: DeleteOutline,
             tooltip: "Eliminar Ejercicio",
             onClick: (event, rowData) =>
-              seleccionarUsuario(rowData, "Eliminar"),
+              seleccionarAccion(rowData, "Eliminar"),
           },
           
         ]}
@@ -635,13 +717,13 @@ const Accion = () => {
         }}
       />
 
-      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar}>
+      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar} style={modalStyles}>
         {bodyInsertar}
       </Modal>
-      <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
+      <Modal open={modalEditar} onClose={abrirCerrarModalEditar} style={modalStyles}>
         {bodyEditar}
       </Modal>
-      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar}>
+      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar} style={modalStylesDelete}>
         {bodyEliminar}
       </Modal>
     </div>

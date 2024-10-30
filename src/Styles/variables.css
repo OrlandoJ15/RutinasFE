@@ -1,0 +1,32 @@
+
+@font-face {
+    font-family: 'Cooper Hewitt';
+    src: url('../assets/Fonts/CooperHewitt-Bold.otf') format('opentype');
+    font-weight: bold;
+  }
+  @font-face {
+    font-family: 'Cooper Hewitt';
+    src: url('../assets/Fonts/CooperHewitt-Regular.otf') format('opentype');
+    font-weight: normal;
+  }
+
+:root {
+    --color-primario: #F2E205; /* Amarillo dorado */
+    --color-secundario: #F2A03D; /* Naranja dorado */
+    --color-terciario: #402005; /* Marrón oscuro */
+    --color-cuaternario: #F28B30; /* Naranja claro */
+    --color-fondo: #0D0D0D; /* Negro */
+
+    
+    --font-primary: 'Cooper Hewitt', sans-serif;
+    --font-size-base: 1rem;
+    --font-size-heading: 1.5rem;
+    --font-size-subheading: 1.25rem;
+
+   
+    --spacing-base: 1rem;
+    --border-radius: 01.25rem;
+
+   
+    --transition-duration: 0.3s;
+}

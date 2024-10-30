@@ -1,5 +1,5 @@
 import React from "react";
-import "../Styles/Login.css";
+import "./Styles/Login.css";
 import axios from "axios";
 import Cookies from "universal-cookie";
 

@@ -1,0 +1,124 @@
+@import './Styles/variables.css';
+
+a {
+  font-weight: 500;
+  color: var(--color-secondary);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--color-button-hover);
+}
+
+h1 {
+  font-size: var(--font-size-base);
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  padding: 0.6rem 1.2rem;
+  font-size: var(--font-md);
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-tertiary);
+  cursor: pointer;
+  transition: border-color 0.25s, background-color 0.25s;
+}
+button:hover {
+  background-color: var(--color-highlight);
+  border-color: var(--color-button-hover);
+}
+button:focus,
+button:focus-visible {
+  outline: 2px auto -webkit-focus-ring-color;
+}
+
+/* Diseño responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--font-md);
+  }
+
+  button {
+    font-size: var(--font-sm);
+    padding: 0.5rem 1rem;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--color-fondo); /* Fondo en negro */
+  color: var(--color-primario); /* Texto en amarillo dorado */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Código */
+code {
+  font-family: var(--font-primary);
+  color: var(--color-secundario); /* Texto en naranja dorado */
+  background-color: var(--color-fondo); /* Fondo negro para destacar */
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+/*@import './Styles/variables.css';
+a {
+  font-weight: 500;
+  font-family: var(--font-primary);
+  color: var(--color-terciario);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--color-cuarternario);
+}
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}*/
+
+
+/*body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--color-fondo); /* Fondo en negro */
+  /*color: var(--color-primario); /* Texto en amarillo dorado */
+  /*-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}*/
+
+/*code {
+  font-family: var(--font-primary);
+}*/

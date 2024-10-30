@@ -36,10 +36,23 @@ const Columna = styled.ul`
 const Formulario = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
 
   @media (max-width: 800px) {
     grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const Formulario1 = styled.form`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
   }
 
   @media (max-width: 500px) {
@@ -65,11 +78,11 @@ const Formulario3 = styled.form`
   grid-template-columns: 1fr 1fr 1fr;
 
   @media (max-width: 800px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   @media (max-width: 500px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -279,6 +292,7 @@ const MensajeError = styled.div`
 
 export {
   Formulario,
+  Formulario1,
   Formulario2,
   Formulario3,
   FormularioEncabezado,

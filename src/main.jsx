@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
-import './index.css';
+import './Styles/index.css';
 import Router from './Routes/Router.jsx';
 
 createRoot(document.getElementById('root')).render(
