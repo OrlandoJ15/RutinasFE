@@ -1,21 +1,21 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Usuario from '..Usuario.jsx';
-import Login from '..Login.jsx';
-import Home from '..Home.jsx';
-import Logout from '..Logout.jsx';
-import Rutina from '..Rutina.jsx.';
-import RutinaAccion from '..RutinaAccion.jsx';
-import Accion from '..Accion.jsx';
-import Cliente from '..Cliente.jsx';
-import Navbar from "..Navbar.jsx";
+import Usuario from '../Pages/Usuario/Usuario.jsx';
+import Login from '../Pages/Login/Login.jsx';
+import Home from '../Pages/Home/Home.jsx';
+import Logout from '../Pages/Logout/Logout.jsx';
+import Rutina from '../Pages/Rutina/Rutina.jsx';
+import RutinaAccion from '../Pages/RutinaAccion/RutinaAccion.jsx';
+import Accion from '../Pages/Accion/Accion.jsx';
+import Cliente from '../Pages/Cliente/Cliente.jsx';
+import Navbar from "../Components/Navbar/Navbar.jsx";
 
 
 function Router() {
     return (
         <BrowserRouter>
             <Navbar/>
-            <Routes>
+            <Routes>    
                 <Route path="/" exact element={<Login />} />
                 <Route path="/Home" exact element={<Home />} />
                 <Route path="/Usuario" exact element={<Usuario />} />

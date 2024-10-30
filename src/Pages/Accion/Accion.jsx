@@ -5,15 +5,15 @@ import { Modal, Paper, TextField, Button, Box, useTheme } from "@mui/material";
 import { AddBox, DeleteOutline, Edit, Password } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import Swal from "sweetalert2";
-import InputGeneral from "./Components/Form/InputGeneral.jsx";
+import InputGeneral from "../../Components/Form/InputGeneral.jsx";
 import {
   ColumnaCenter,
   Columna,
   Formulario1,
   MensajeExito,
   MensajeError,
-} from "./Components/Form/Formularios";
-import "../Styles/modal.css";
+} from "../../Components/Form/Formularios.jsx";
+import "../../Styles/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 

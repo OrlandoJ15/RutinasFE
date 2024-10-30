@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import './Styles/variables.css'; 
+import '/src/Styles/variables.css'; 
 
 const SidebarLink = styled(Link)`
   display: flex;

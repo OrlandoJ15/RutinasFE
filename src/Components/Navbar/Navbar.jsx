@@ -3,9 +3,9 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from '../Sidebar/SidebarData';
-import './Components/Navbar/Navbar.css';
+import '../Navbar/Navbar.css';
 import { IconContext } from 'react-icons';
-import SubMenu from './Components/Sidebar/SubMenu';
+import SubMenu from '../Sidebar/SubMenu';
 
 /////////////////////////Menu Lateral///////////////
 
