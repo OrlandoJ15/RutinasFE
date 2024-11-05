@@ -4,6 +4,7 @@ a {
   font-weight: 500;
   color: var(--color-secondary);
   text-decoration: inherit;
+  font-family: var(--font-primary);
 }
 a:hover {
   color: var(--color-button-hover);
@@ -12,6 +13,7 @@ a:hover {
 h1 {
   font-size: var(--font-size-base);
   line-height: 1.1;
+  font-family: var(--font-primary);
 }
 
 button {
@@ -36,9 +38,9 @@ button:focus-visible {
 
 /* Diseño responsive */
 @media (max-width: 768px) {
-  h1 {
+  /*h1 {
     font-size: var(--font-md);
-  }
+  }*/
 
   button {
     font-size: var(--font-sm);

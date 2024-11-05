@@ -464,7 +464,7 @@ const Usuario = () => {
         {" "}
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
               <InputGeneral
                 estado={nombre}
@@ -527,7 +527,7 @@ const Usuario = () => {
                 expresionRegular={expresionesRegulares.creado}
               />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
 
@@ -562,7 +562,7 @@ const Usuario = () => {
       <div className="relleno-general">
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
             <InputGeneral
                 estado={nombre}
@@ -615,7 +615,7 @@ const Usuario = () => {
                 expresionRegular={expresionesRegulares.rol}
               />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
       {formularioValido === false && (
@@ -661,7 +661,7 @@ const Usuario = () => {
         {" "}
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
             <InputGeneral
                 estado={idUsuario}
@@ -674,7 +674,7 @@ const Usuario = () => {
                 expresionRegular={expresionesRegulares.idUsuario}
               />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
 

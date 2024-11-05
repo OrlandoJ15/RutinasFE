@@ -1,3 +1,28 @@
+.btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-base);
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: background-color var(--transition-duration) var(--transition-ease);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  float: right;
+  border-radius: var(--border-radius-lg);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-light);
+  float: right;
+}
+
+
+
+
+
 .btn-agrega{
   background-color: #4CAF50; /* Green */
   color: white;
@@ -67,9 +92,9 @@
   background-color:black;
 }
 
-.h1{
+/*.h1{
   background-color:black;
-}
+}*/
 
 .h2{
   background-color:black;
@@ -80,35 +105,13 @@
 }
 
 .relleno-general{
-  background-color: rgb(62, 148, 228);
+  background-color: var(--color-primary);
   width: auto-fit;
   height: auto-fit;
 	padding-bottom: 1rem;
   font-weight: bold;
 }
 
-.relleno-asociar{
-  background-color: rgb(62, 148, 228);
-  width: auto-fit;
-  height: auto-fit;
-  padding-bottom: 1rem;
-}
-
-.relleno-precios{
-  background-color: rgb(62, 148, 228);
-  width: auto-fit;
-  height: auto-fit;
-  padding-bottom: 1rem;
-  font-weight: bold;
-}
-
-.relleno-hacienda{
-  background-color: rgb(62, 148, 228);
-  width: auto-fit;
-  height: auto-fit;
-  padding-bottom: 1rem;
-  font-weight: bold;
-}
 
 
 

@@ -536,7 +536,7 @@ const Cliente = () => {
         <div className="container-fluid">
           <Formulario1>
             <Columna>
-              <Inpu
+              <InputGeneral
                 estado={nombre}
                 cambiarEstado={cambiarnombre}
                 tipo="text"

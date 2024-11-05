@@ -16,6 +16,8 @@ import {
 import "../../Styles/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import '../Accion/Accion.css';
+import "../../Styles/variables.css";
 
 //////////////////////////INICIA SECCION COLUMNAS///////////////////////////
 //////////////////////////INICIA GRID INICIAL//////////////////////////
@@ -357,10 +359,6 @@ const Accion = () => {
 
   //////////////////////////FINALIZA PETICION SELECT////////////////////////
 
-  ////////////////////////// PETICION CAMBIO CLAVE////////////////////////
-
-  //////////////////////////FINALIZA PETICION CAMBIO CLAVE////////////////////////
-
   //////////////////////////MODALES////////////////////////
 
   const abrirCerrarModalInsertar = () => {
@@ -375,63 +373,12 @@ const Accion = () => {
     setModalEliminar(!modalEliminar);
   };
 
-  const abrirCerrarModalCambioClave = () => {
-    setModalCambioClave(!modalCambioClave);
-  };
-
   //////////////////////////MODALES////////////////////////
-
-  ////////////////////////////CSS SCROLL, MODAL////////////////////////////
-
-  const scrollVertical = {
-    width: "70%",
-    height: "100%",
-    overflowX: "hidden",
-    overflowY: "scroll",
-    position: "relative",
-    backgroundColor: "rgb(255, 255, 255)",
-  };
-
-  const modalStyles = {
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    width: "100%",
-    height: "100%",
-    transform: "translate(-50%, -50%)",
-    zIndex: 1040,
-    padding: "0 0 0 25%",
-  };
-
-  const modalStylesDelete = {
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    width: "100%",
-    height: "100%",
-    transform: "translate(-50%, -50%)",
-    zIndex: 1040,
-    padding: "0 0 0 25%",
-  };
-
-  const ListStyleButton = {
-    margin: "20px 0px 0px 0px",
-  };
-
-  const StyleLabelAfterButton = {
-    margin: "0px 0px 10px 0px",
-  };
-
-  const Text = {
-    fontWeight: "bold",
-  };
-
-  ////////////////////////////CSS SCROLL, MODAL////////////////////////////
 
   /////////////////////////INCLUIR ARTICULOS////////////////////////////
 
   const bodyInsertar = (
-    <div style={scrollVertical}>
+    <div className="scrollVertical" >
       <header></header>
       <h3>Agregar Ejercicio</h3>
       <div className="relleno-general">
@@ -507,13 +454,13 @@ const Accion = () => {
       )}
 
       <div align="right">
-      <div className="btn-cancelar">
+      <div className="btn-primary">
         <Button onClick={() => abrirCerrarModalInsertar()}>
           {" "}
           Cancelar{" "}
         </Button>
         </div>
-        <div className="btn-agrega">
+        <div className="btn-primary">
         <Button onClick={""} type="submit">
           {" "}
           Agregar
@@ -527,7 +474,7 @@ const Accion = () => {
   );
 
   const bodyEditar = (
-    <div style={scrollVertical}>
+    <div className="scrollVertical">
       <h3>Editar Ejercicio</h3>
       <div className="relleno-general">
         General
@@ -614,7 +561,7 @@ const Accion = () => {
   }
 
   const bodyEliminar = (
-    <div style={scrollVertical}>
+    <div className="scrollVertical">
       <h3>Eliminar Ejercicio</h3>
       <div className="relleno-general">
         {" "}
@@ -717,13 +664,13 @@ const Accion = () => {
         }}
       />
 
-      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar} style={modalStyles}>
+      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar} className="modalStyles">
         {bodyInsertar}
       </Modal>
-      <Modal open={modalEditar} onClose={abrirCerrarModalEditar} style={modalStyles}>
+      <Modal open={modalEditar} onClose={abrirCerrarModalEditar} className="modalStyles">
         {bodyEditar}
       </Modal>
-      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar} style={modalStylesDelete}>
+      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar} className="modalStylesDelete">
         {bodyEliminar}
       </Modal>
     </div>

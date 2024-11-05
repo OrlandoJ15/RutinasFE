@@ -456,7 +456,7 @@ const Rutina = () => {
         {" "}
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
               <InputGeneral
                 estado={IdUsuario}
@@ -526,7 +526,7 @@ const Rutina = () => {
                 expresionRegular={expresionesRegulares.Clave}
               />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
 
@@ -561,7 +561,7 @@ const Rutina = () => {
       <div className="relleno-general">
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
               <InputGeneral
                 estado={Nombre}
@@ -611,7 +611,7 @@ const Rutina = () => {
                 value={Correo.campo}
               />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
       {formularioValido === false && (
@@ -657,7 +657,7 @@ const Rutina = () => {
         {" "}
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
               <h4>Codigo: {IdUsuario.campo}</h4>
               <h4>Nombre: {Nombre.campo}</h4>
@@ -665,7 +665,7 @@ const Rutina = () => {
               <h4>Rol: {Rol.campo}</h4>
               <h4>Correo: {Correo.campo}</h4>
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
 
@@ -702,7 +702,7 @@ const Rutina = () => {
     <div style={scrollVertical}>
       <div className="relleno-general">
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <ColumnaCenter>
               <InputGeneral
                 estado={Clave}
@@ -740,7 +740,7 @@ const Rutina = () => {
                 value={ConfirmarNuevaClave.campo}
               />
             </ColumnaCenter>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
       <div align="right">

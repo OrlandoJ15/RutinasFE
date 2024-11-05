@@ -457,7 +457,7 @@ const RutinaAccion = () => {
         {" "}
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
               <InputGeneral
                 estado={IdUsuario}
@@ -527,7 +527,7 @@ const RutinaAccion = () => {
                 expresionRegular={expresionesRegulares.Clave}
               />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
 
@@ -562,7 +562,7 @@ const RutinaAccion = () => {
       <div className="relleno-general">
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
               <InputGeneral
                 estado={Nombre}
@@ -612,7 +612,7 @@ const RutinaAccion = () => {
                 value={Correo.campo}
               />
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
       {formularioValido === false && (
@@ -658,7 +658,7 @@ const RutinaAccion = () => {
         {" "}
         General
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <Columna>
               <h4>Codigo: {IdUsuario.campo}</h4>
               <h4>Nombre: {Nombre.campo}</h4>
@@ -666,7 +666,7 @@ const RutinaAccion = () => {
               <h4>Rol: {Rol.campo}</h4>
               <h4>Correo: {Correo.campo}</h4>
             </Columna>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
 
@@ -703,7 +703,7 @@ const RutinaAccion = () => {
     <div style={scrollVertical}>
       <div className="relleno-general">
         <div className="container-fluid">
-          <Formulario>
+          <Formulario1>
             <ColumnaCenter>
               <InputGeneral
                 estado={Clave}
@@ -741,7 +741,7 @@ const RutinaAccion = () => {
                 value={ConfirmarNuevaClave.campo}
               />
             </ColumnaCenter>
-          </Formulario>
+          </Formulario1>
         </div>
       </div>
       <div align="right">
