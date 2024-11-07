@@ -24,17 +24,19 @@
 
 
 .btn-agrega{
-  background-color: #4CAF50; /* Green */
-  color: white;
+  background-color: var(--color-text);
+  color: var(--color-primary);
   border-radius: 12px;
   float: right;
 }
 
 .btn-cancelar{
-  background-color: #fa0202; /* Green */
-  color: white;
-  border-radius: 12px;
-  float: right;
+  background-color: var(--color-primary); 
+  color: var(--color-text);
+  border-radius: var(--border-radius-md);
+  float: left;
+  border-color: var(--color-text);
+  border-style: solid;
 }
 
 .MuiTableCell-root{
@@ -84,6 +86,15 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
+.container-header {
+  background-color: var(--color-primary);
+  width: auto-fit;
+  height: auto-fit;
+	padding: 7% 5% 5% 5%;
+  font-weight: bold;
+  margin-top: -2%;
+}
+
 .branding1{
   background-color: var(--color-primario);
 }
@@ -108,7 +119,16 @@
   background-color: var(--color-primary);
   width: auto-fit;
   height: auto-fit;
-	padding-bottom: 1rem;
+	padding: 5% 5% 5% 5%;
+  margin: 5% 5% 5% 5%;
+  font-weight: bold;
+}
+
+.container-footer {
+  background-color: var(--color-primary);
+  width: auto-fit;
+  height: auto-fit;
+	padding: 5% 5% 7% 5%;
   font-weight: bold;
 }
 

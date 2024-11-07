@@ -12,7 +12,7 @@
 
 :root {
     /* Paleta de colores */
-    --color-primary: #fffb00;
+    --color-primary: #26065D;
     --color-secondary: #ff0303;
     --color-success: #198754;
     --color-danger: #dc3545;
@@ -21,7 +21,7 @@
     --color-light: #f8f9fa;
     --color-dark: #212529;
     --color-background: #ffffff;
-    --color-text: #333333;
+    --color-text: #ffffff;
 
     /* Estados interactivos */
     --color-hover-primary: #f8f542d3;

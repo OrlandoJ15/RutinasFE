@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MaterialTable from "@material-table/core";
 import { Modal, Paper, TextField, Button, Box, useTheme } from "@mui/material";
-import { AddBox, DeleteOutline, Edit, Password } from "@mui/icons-material";
+import { AddBox, DeleteOutline, Edit, Opacity, Password } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import Swal from "sweetalert2";
 import InputGeneral from "../../Components/Form/InputGeneral.jsx";
@@ -486,7 +486,8 @@ const Cliente = () => {
     overflowX: "hidden",
     overflowY: "scroll",
     position: "relative",
-    backgroundColor: "rgb(255, 255, 255)",
+    backgroundcolor: "rgba(0, 0, 0, 0.25)",
+    backdropfilter: "blur(50px)",
   };
 
   const modalStyles = {
@@ -529,7 +530,7 @@ const Cliente = () => {
 
   const bodyInsertar = (
     <div style={scrollVertical}>
-      <h3>Agregar Cliente</h3>
+      <h3 className="container-header"> Agregar Cliente</h3>
       <div className="relleno-general">
         {" "}
         General
@@ -657,23 +658,23 @@ const Cliente = () => {
         </MensajeError>
       )}
 
-      <div align="right">
-      <div className="btn-cancelar">
-        <Button onClick={() => abrirCerrarModalInsertar()}>
-          {" "}
-          Cancelar{" "}
-        </Button>
+      <div className="container-footer">
+        <div className="btn-cancelar">
+          <Button onClick={() => abrirCerrarModalInsertar()}>
+            {" "}
+            Cancelar{" "}
+          </Button>
+          </div>
+          <div className="btn-agrega">
+          <Button onClick={""} type="submit">
+            {" "}
+            Insertar
+          </Button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Formulario enviado exitosamente!</MensajeExito>
+          )}
         </div>
-        <div className="btn-agrega">
-        <Button color="success" onClick={""} type="submit">
-          {" "}
-          Insertar
-        </Button>
-        </div>
-        {formularioValido === true && (
-          <MensajeExito>Formulario enviado exitosamente!</MensajeExito>
-        )}
-      </div>
     </div>
   );
 

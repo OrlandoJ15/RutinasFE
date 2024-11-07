@@ -24,14 +24,14 @@ const SidebarLink = styled(Link)`
 
 const SidebarLabel = styled.span`
   margin-left: 16px;
-  color: var(--color-secundario); 
+  color: var(--color-text); 
   font-family: var(--font-primary); 
   font-size: var(--font-size-base); 
 `;
 
 const DropdownLink = styled(Link)`
   background: var(--color-terciario);
-  height: 65px;
+  height: 80px;
   padding-left: 3rem;
   display: flex;
   align-items: center;
