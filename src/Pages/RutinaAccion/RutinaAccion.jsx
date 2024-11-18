@@ -47,44 +47,29 @@ const baseUrlDel = "https://localhost:44365/api/Usuario/delUsuario";
 const RutinaAccion = () => {
   //////////////////////////INICIA CONSTANTES - STATE///////////////////////////
 
-  const [IdUsuario, cambiarIdUsuario] = useState({ campo: "", valido: null });
-  const [Nombre, cambiarNombre] = useState({ campo: "", valido: null });
-  const [NombreUsuario, cambiarNombreUsuario] = useState({
-    campo: "",
-    valido: null,
-  });
-  const [Rol, cambiarRol] = useState({ campo: 0, valido: null });
-  const [Correo, cambiarCorreo] = useState({ campo: "", valido: null });
-  const [Clave, cambiarClave] = useState({ campo: "", valido: null });
-
-  const [NuevaClave, cambiarNuevaClave] = useState({ campo: "", valido: null });
-  const [ConfirmarNuevaClave, cambiarConfirmarNuevaClave] = useState({
-    campo: "",
-    valido: null,
-  });
-
+  const [idRutina, cambiaridRutina] = useState({ campo: 0, valido: null });
+  const [idAccion, cambiaridAccion] = useState({ campo: 0, valido: null });
+  const [nombreRutina, cambiarnombreRutina] = useState({ campo: "", valido: null });
+  const [nombreAccion, cambiarnombreAccion] = useState({ campo: "", valido: null });
+  const [setsAccion, cambiarsetsAccion] = useState({ campo: "", valido: null });
+  const [repsAccion, cambiarrepsAccion] = useState({ campo: "", valido: null });
+  const [pesoAccion, cambiarpesoAccion] = useState({ campo: "", valido: null });
+  const [idRutinaAccion, cambiaridRutinaAccion] = useState({ campo: 0, valido: null });
   const [formularioValido, cambiarFormularioValido] = useState(false);
-
-  // const [usuarioSeleccionado, setUsuarioSeleccionado] = useState({
-  //   IdUsuario: "",
-  //   Nombre: "",
-  //   NombreUsuario: "",
-  //   Rol: "",
-  //   Correo: "",
-  //   Clave: "",
-  // });
 
   //////////////////////////TERMINA CONSTANTES - STATE///////////////////////////
 
   /////////////////////////////////////EXPRESIONES//////////////////////////////////
 
   const expresionesRegulares = {
-    IdUsuario: /^[0-9]*$/,
-    Nombre: /^[a-zA-Z0-9_-\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    NombreUsuario: /^[a-zA-Z0-9_-\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    Rol: /^[1-9]$/, // solo numero del 1-9
-    Correo: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, //formato de correo electronico
-    Clave: /^(?=(?:.*[A-Za-z]){4,})(?=.*[A-Z])(?=(?:.*\d){4,})[A-Za-z\d]{8,}$/, //contrasena con almenos 4 letras y minimo 1 mayuscukla, 4 numeros y minimo 8 carcteres
+    idRutina: /^[0-9]*$/,
+    idAccion: /^[a-zA-Z0-9_-\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+    nombreRutina: /^[a-zA-Z0-9_-\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+    nombreAccion: /^[1-9]$/, // solo numero del 1-9
+    setsAccion: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, //formato de correo electronico
+    repsAccion: /^(?=(?:.*[A-Za-z]){4,})(?=.*[A-Z])(?=(?:.*\d){4,})[A-Za-z\d]{8,}$/, //contrasena con almenos 4 letras y minimo 1 mayuscukla, 4 numeros y minimo 8 carcteres
+    pesoAccion: /^[0-9]*$/,
+    idRutinaAccion: /^[0-9]*$/,
   };
 
   /////////////////////////////////////EXPRESIONES//////////////////////////////////
@@ -93,20 +78,24 @@ const RutinaAccion = () => {
   const onsubmitpost = (e) => {
     e.preventDefault();
     if (
-      IdUsuario.valido === "true" &&
-      Nombre.valido === "true" &&
-      NombreUsuario.valido === "true" &&
-      Rol.valido === "true" &&
-      Correo.valido === "true" &&
-      Clave.valido === "true"
+      idRutina.valido === "true" &&
+      idAccion.valido === "true" &&
+      nombreRutina.valido === "true" &&
+      nombreAccion.valido === "true" &&
+      setsAccion.valido === "true" &&
+      repsAccion.valido === "true" &&
+      pesoAccion.valido === "true" &&
+      idRutinaAccion.valido === "true"
     ) {
       cambiarFormularioValido(true);
-      cambiarIdUsuario({ campo: "", valido: "" });
-      cambiarNombre({ campo: "", valido: null });
-      cambiarNombreUsuario({ campo: "", valido: null });
-      cambiarRol({ campo: "", valido: null });
-      cambiarCorreo({ campo: "", valido: null });
-      cambiarClave({ campo: "", valido: null });
+      cambiaridRutina({ campo: "", valido: "" });
+      cambiaridAccion({ campo: "", valido: null });
+      cambiarnombreRutina({ campo: "", valido: null });
+      cambiarnombreAccion({ campo: "", valido: null });
+      cambiarsetsAccion({ campo: "", valido: null });
+      cambiarrepsAccion({ campo: "", valido: null });
+      cambiarpesoAccion({ campo: "", valido: null });
+      cambiaridRutinaAccion({ campo: "", valido: null });
       showQuestionPost();
     } else {
       
@@ -114,37 +103,44 @@ const RutinaAccion = () => {
     }
   };
 
-  const onsubmitput = (e) => {
+  /*const onsubmitpost = (e) => {
     e.preventDefault();
     if (
-      IdUsuario.valido === "true" &&
-      Nombre.valido === "true" &&
-      NombreUsuario.valido === "true" &&
-      Rol.valido === "true" &&
-      Correo.valido === "true"
+      idRutina.valido === "true" &&
+      idAccion.valido === "true" &&
+      nombreRutina.valido === "true" &&
+      nombreAccion.valido === "true" &&
+      setsAccion.valido === "true" &&
+      repsAccion.valido === "true" &&
+      pesoAccion.valido === "true" &&
+      idRutinaAccion.valido === "true"
     ) {
       cambiarFormularioValido(true);
-      cambiarIdUsuario({ campo: "", valido: "" });
-      cambiarNombre({ campo: "", valido: null });
-      cambiarNombreUsuario({ campo: "", valido: null });
-      cambiarRol({ campo: "", valido: null });
-      cambiarCorreo({ campo: "", valido: null });
-      showQuestionPut();
+      cambiaridRutina({ campo: "", valido: "" });
+      cambiaridAccion({ campo: "", valido: null });
+      cambiarnombreRutina({ campo: "", valido: null });
+      cambiarnombreAccion({ campo: "", valido: null });
+      cambiarsetsAccion({ campo: "", valido: null });
+      cambiarrepsAccion({ campo: "", valido: null });
+      cambiarpesoAccion({ campo: "", valido: null });
+      cambiaridRutinaAccion({ campo: "", valido: null });
+      showQuestionPost();
     } else {
+      
       cambiarFormularioValido(false);
     }
-  };
+  };*/
 
   ///////////////////////////////////AXIOS FUNCIONES//////////////////////////////
 
-  const endPointUsuarioXId =
-    "https://localhost:44365/api/Usuario/recUsuarioXId?pId=" + IdUsuario.campo;
+  const endPointRutinaAccionXId =
+    "https://localhost:44365/api/Usuario/recUsuarioXId?pId=" + idRutinaAccion.campo;
 
   ///////////////////////////////////FINALIZA AXIOS FUNCIONES//////////////////////////////
 
   ////////////////////////////////VALIDACIONES ID/////////////////////////////////
 
-  function ValidarExistenciaUsuarioId() {
+  function ValidarExistenciaRutinaAccionId() {
     function showError() {
       Swal.fire({
         icon: "error",
@@ -158,12 +154,12 @@ const RutinaAccion = () => {
     }
 
     const MetodoValidar = async () => {
-      await axios.get(endPointUsuarioXId).then((response) => {
+      await axios.get(endPointRutinaAccionXId).then((response) => {
         const data = response.data;
         if (data === null) {
-          cambiarIdUsuario({ campo: IdUsuario.campo, valido: "true" });
+          cambiaridRutinaAccion({ campo: idRutinaAccion.campo, valido: "true" });
         } else {
-          cambiarIdUsuario({ campo: "", valido: "false" });
+          cambiaridRutinaAccion({ campo: "", valido: "false" });
           showError();
         }
       });
@@ -199,7 +195,6 @@ const RutinaAccion = () => {
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
-  const [modalCambioClave, setModalCambioClave] = useState(false);
 
   //////////////////////////////// FINALIZA CONSTANTES MODAL/////////////////////////////////
 
@@ -207,46 +202,37 @@ const RutinaAccion = () => {
 
   function showQuestionPost() {
     Swal.fire({
-      title: "Desea Guardar Los Cambios Efectuados?",
+      title: "¿Desea agregar estos detalles a la rutina?",
       showDenyButton: true,
-      confirmButtonText: "Guardar",
-      denyButtonText: "Cancelar",
+      confirmButtonText: "Si, agregar",
+      denyButtonText: "No, cancelar",
+      customClass: {
+        confirmButton: 'btn-agregar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Guardado Correctamente!", "", "success");
+        Swal.fire("Detalles agregados correctamente!", "", "success");
         peticionPost();
         //peticionPostKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios No Guardados", "", "info");
+        Swal.fire("No se agregaron los detalles", "", "info");
       }
     });
   }
-
-  // const peticionPostKardex = async () => {
-  //   const options = {
-  //     Serie: Serie.campo,
-  //     Numero: Numero.campo,
-  //     Nombre: Nombre.campo,
-  //     Monto: Monto.campo,
-  //     IdUsuario: IdUsuario.campo,
-  //   };
-
-  //   await axios.post(baseUrlPostKardex, options).then((response) => {
-  //     setData(data.concat(response.data));
-  //     abrirCerrarModalInsertar();
-  //   });
-  // };
 
   //REVISAR LOS PARENTESIS
 
   const peticionPost = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUSuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
-      Clave: Clave.campo,
+      idRutina: idRutina.campo,
+      idAccion: idAccion.campo,
+      nombreRutina: nombreRutina.campo,
+      nombreAccion: nombreAccion.campo,
+      setsAccion: setsAccion.campo,
+      repsAccion: repsAccion.campo,
+      pesoAccion: pesoAccion.campo,
+      idRutinaAccion: idRutinaAccion.campo,
     };
 
     await axios
@@ -268,28 +254,35 @@ const RutinaAccion = () => {
   //REVISAR LAS COMILLAS
   function showQuestionPut() {
     Swal.fire({
-      title: "Desea Guardar Los Cambios Efectuados?",
+      title: "¿Desea editar los detalles de la rutina?",
       showDenyButton: true,
-      confirmButtonText: "Editar",
-      denyButtonText: "Cancelar",
+      confirmButtonText: "Si, editar",
+      denyButtonText: "No, cancelar",
+      customClass: {
+        confirmButton: 'btn-agregar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Guardado Correctamente!", "", "success");
+        Swal.fire("Guardada Correctamente!", "", "success");
         peticionPut();
         //peticionPutKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios No Guardados", "", "info");
+        Swal.fire("No se editaron los campos", "", "info");
       }
     });
   }
 
   const peticionPut = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUsuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
+      idRutina: idRutina.campo,
+      idAccion: idAccion.campo,
+      nombreRutina: nombreRutina.campo,
+      nombreAccion: nombreAccion.campo,
+      setsAccion: setsAccion.campo,
+      repsAccion: repsAccion.campo,
+      pesoAccion: pesoAccion.campo,
+      idRutinaAccion: idRutinaAccion.campo,
     };
 
     await axios
@@ -297,12 +290,15 @@ const RutinaAccion = () => {
       .put(baseUrlPut, options)
       .then((response) => {
         var dataNueva = data;
-        dataNueva.map((Usuario) => {
-          if (Usuario.IdUsuario === options.IdUsuario) {
-            Usuario.Nombre = options.Nombre;
-            Usuario.NombreUsuario = options.NombreUsuario;
-            Usuario.Rol = options.Rol;
-            Usuario.Correo = options.Correo;
+        dataNueva.map((RutinaAccion) => {
+          if (RutinaAccion.idRutinaAccion === options.idRutinaAccion) {
+            RutinaAccion.idRutina = options.idRutina;
+            RutinaAccion.idAccion = options.idAccion;
+            RutinaAccion.nombreRutina = options.nombreRutina;
+            RutinaAccion.nombreAccion = options.nombreAccion;
+            RutinaAccion.setsAccion = options.setsAccion;
+            RutinaAccion.repsAccion = options.repsAccion;
+            RutinaAccion.pesoAccion = options.pesoAccion;
           }
           return dataNueva;
         });
@@ -321,12 +317,14 @@ const RutinaAccion = () => {
 
   const peticionDelete = async () => {
     const options = {
-      IdUsuario: IdUsuario.campo,
-      Nombre: Nombre.campo,
-      NombreUsuario: NombreUsuario.campo,
-      Rol: Rol.campo,
-      Correo: Correo.campo,
-      Clave: Clave.campo,
+      idRutina: idRutina.campo,
+      idAccion: idAccion.campo,
+      nombreRutina: nombreRutina.campo,
+      nombreAccion: nombreAccion.campo,
+      setsAccion: setsAccion.campo,
+      repsAccion: repsAccion.campo,
+      pesoAccion: pesoAccion.campo,
+      idRutinaAccion: idRutinaAccion.campo,
     };
 
     const payload = {
@@ -338,7 +336,7 @@ const RutinaAccion = () => {
       .delete(baseUrlDel, payload)
       .then((response) => {
         setData(
-          data.filter((Usuario) => Usuario.IdUsuario !== options.IdUsuario)
+          data.filter((RutinaAccion) => RutinaAccion.idRutinaAccion !== options.idRutinaAccion)
         );
         abrirCerrarModalEliminar();
       })
@@ -351,17 +349,20 @@ const RutinaAccion = () => {
 
   //////////////////////////PETICION SELECT////////////////////////
 
-  const seleccionarUsuario = async (usuario, caso) => {
-    if (usuario && typeof usuario === "object") {
-      console.log({ usuario });
+  const seleccionarRutinaAccion = async (RutinaAccion, caso) => {
+    if (usuario && typeof RutinaAccion === "object") {
+      console.log({ RutinaAccion });
     }
-    const XUsuario = Object.values(...usuario);
-    cambiarIdUsuario({ campo: XUsuario[0], valido: "true" });
-    cambiarNombre({ campo: XUsuario[1], valido: "true" });
-    cambiarNombreUsuario({ campo: XUsuario[2], valido: "true" });
-    cambiarRol({ campo: XUsuario[3], valido: "true" });
-    cambiarCorreo({ campo: XUsuario[4], valido: "true" });
-    console.log({ XUsuario });
+    const XRutinaAccion = Object.values(...usuRutinaAccionario);
+    cambiaridRutina({ campo: XRutinaAccion[0], valido: "true" });
+    cambiaridAccion({ campo: XRutinaAccion[1], valido: "true" });
+    cambiarnombreRutina({ campo: XRutinaAccion[2], valido: "true" });
+    cambiarnombreAccion({ campo: XRutinaAccion[3], valido: "true" });
+    cambiarsetsAccion({ campo: XRutinaAccion[4], valido: "true" });
+    cambiarrepsAccion({ campo: XRutinaAccion[5], valido: "true" });
+    cambiarpesoAccion({ campo: XRutinaAccion[6], valido: "true" });
+    cambiaridRutinaAccion({ campo: XRutinaAccion[7], valido: "true" });
+    console.log({ XRutinaAccion });
     caso === "Editar" ? abrirCerrarModalEditar() : abrirCerrarModalEliminar();
   };
 
@@ -395,10 +396,6 @@ const RutinaAccion = () => {
     setModalEliminar(!modalEliminar);
   };
 
-  const abrirCerrarModalCambioClave = () => {
-    setModalCambioClave(!modalCambioClave);
-  };
-
   //////////////////////////MODALES////////////////////////
 
   ////////////////////////////CSS SCROLL, MODAL////////////////////////////
@@ -409,7 +406,8 @@ const RutinaAccion = () => {
     overflowX: "hidden",
     overflowY: "scroll",
     position: "relative",
-    backgroundColor: "rgb(255, 255, 255)",
+    inset: "0",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   };
 
   const modalStyles = {
@@ -434,366 +432,220 @@ const RutinaAccion = () => {
     padding: "0 0 0 25%",
   };
 
-  const ListStyleButton = {
-    margin: "20px 0px 0px 0px",
-  };
-
-  const StyleLabelAfterButton = {
-    margin: "0px 0px 10px 0px",
-  };
-
-  const Text = {
-    fontWeight: "bold",
-  };
-
   ////////////////////////////CSS SCROLL, MODAL////////////////////////////
 
   /////////////////////////INCLUIR ARTICULOS////////////////////////////
 
   const bodyInsertar = (
     <div style={scrollVertical}>
-      <h3>Incluir Usuario v2</h3>
+      <h3 className="container-header"> 201 - Agregar Rutina</h3>
       <div className="relleno-general">
         {" "}
-        General
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
               <InputGeneral
-                estado={IdUsuario}
-                cambiarEstado={cambiarIdUsuario}
+                estado={idRutinaAccion}
+                cambiarEstado={cambiaridRutinaAccion}
                 tipo="text"
                 label="Id Usuario"
                 placeholder="Introduzca Id Del Usuario"
-                name="IdUsuario"
+                name="idRutinaAccion"
                 leyendaError="El Id Del Usuario solo puede contener numeros."
-                expresionRegular={expresionesRegulares.IdUsuario}
-                onChange={ValidarExistenciaUsuarioId}
-                onBlur={ValidarExistenciaUsuarioId}
+                expresionRegular={expresionesRegulares.idRutinaAccion}
+                onChange={''}
+                onBlur={''}
                 autofocus
-              />
-              <InputGeneral
-                estado={Nombre}
-                cambiarEstado={cambiarNombre}
-                tipo="text"
-                label="Nombre"
-                placeholder="Introduzca El Nombre"
-                name="Nombre"
-                leyendaError="El Nombre solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.Nombre}
-              />
-
-              <InputGeneral
-                estado={NombreUsuario}
-                cambiarEstado={cambiarNombreUsuario}
-                tipo="text"
-                label="Nombre De Usuario"
-                placeholder="Introduzca El Nombre De Usuario"
-                name="NombreUsuario"
-                leyendaError="El Nombre del Usuario solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.NombreUsuario}
-              />
-
-              <InputGeneral
-                estado={Rol}
-                cambiarEstado={cambiarRol}
-                tipo="number"
-                label="Rol"
-                placeholder="Introduzca El Rol"
-                name="Rol"
-                leyendaError="El rol solo puede contener numeros"
-                expresionRegular={expresionesRegulares.Rol}
-              />
-
-              <InputGeneral
-                estado={Correo}
-                cambiarEstado={cambiarCorreo}
-                tipo="email"
-                label="Correo"
-                placeholder="Introduzca El Correo Electronico"
-                name="Correo"
-                leyendaError="El Formato Del Correo No Es Valido"
-                expresionRegular={expresionesRegulares.Correo}
-              />
-
-              <InputGeneral
-                estado={Clave}
-                cambiarEstado={cambiarClave}
-                tipo="password"
-                label="Clave"
-                placeholder="Introduzca La Contrasena"
-                name="Clave"
-                leyendaError="La contrasena debe contener minimo 8 caracteres"
-                expresionRegular={expresionesRegulares.Clave}
               />
             </Columna>
           </Formulario1>
-        </div>
+          </div>
       </div>
 
       {formularioValido === false && (
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena el formulario correctamente.
+            <b>Error:</b> Por favor rellena los detalles de la rutina correctamente.
           </p>
         </MensajeError>
       )}
 
-      <div align="right">
-        <Button color="success" onClick={() => abrirCerrarModalInsertar()}>
-          {" "}
-          Cancelar{" "}
-        </Button>
-        <Button color="success" onClick={onsubmitpost} type="submit">
-          {" "}
-          Insertar
-        </Button>
-        {formularioValido === true && (
-          <MensajeExito>Formulario enviado exitosamente!</MensajeExito>
-        )}
-      </div>
+      <div className="container-footer">
+          <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalInsertar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button class="btn-agregar" onClick={""} type="submit">
+          Agregar
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" ></path>
+            </svg>
+          </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Detalle de rutina agregada exitosamente!</MensajeExito>
+          )}
+        </div>
     </div>
   );
 
   const bodyEditar = (
     <div style={scrollVertical}>
-      <h3>Editar Usuario v2</h3>
+      <h3 className="container-header"> 201 - Modificar Detalle Rutina</h3>
       <div className="relleno-general">
-        General
+        {" "}
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
-              <InputGeneral
-                estado={Nombre}
-                cambiarEstado={cambiarNombre}
-                tipo="text"
-                label="Nombre"
-                placeholder="Introduzca El Nombre"
-                name="Nombre"
-                leyendaError="El Nombre solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.Nombre}
-                value={Nombre.campo}
-              />
-
-              <InputGeneral
-                estado={NombreUsuario}
-                cambiarEstado={cambiarNombreUsuario}
-                tipo="text"
-                label="Nombre De Usuario"
-                placeholder="Introduzca El Nombre De Usuario"
-                name="NombreUsuario"
-                leyendaError="El Nombre del Usuario solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.NombreUsuario}
-                value={NombreUsuario.campo}
-              />
-
-              <InputGeneral
-                estado={Rol}
-                cambiarEstado={cambiarRol}
+            <InputGeneral
+                estado={idRutina}
+                cambiarEstado={cambiaridRutina}
                 tipo="number"
-                label="Rol"
-                placeholder="Introduzca El Rol"
-                name="Rol"
-                leyendaError="El rol solo puede contener números"
-                expresionRegular={expresionesRegulares.Rol}
-                value={Rol.campo}
-              />
-
-              <InputGeneral
-                estado={Correo}
-                cambiarEstado={cambiarCorreo}
-                tipo="email"
-                label="Correo"
-                placeholder="Introduzca El Correo Electrónico"
-                name="Correo"
-                leyendaError="El Formato Del Correo No Es Válido"
-                expresionRegular={expresionesRegulares.Correo}
-                value={Correo.campo}
+                label="Código de la rutina"
+                placeholder="Ejemplo: 1"
+                name="idRutina"
+                leyendaError="El código debe ser un número entre 1 y 100 dígitos"
+                expresionRegular={expresionesRegulares.idRutina}
               />
             </Columna>
           </Formulario1>
-        </div>
+          </div>
       </div>
       {formularioValido === false && (
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena el formulario correctamente.
+            <b>Error:</b> Por favor rellena los detalles de la rutina correctamente.
           </p>
         </MensajeError>
       )}
-
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalEditar()}> Cancelar </Button>
-        <Button color="primary" onClick={onsubmitput}>
-          Editar
-        </Button>
+        <div className="container-footer">
+        <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalEditar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button class="btn-agregar" onClick={""} type="submit">
+          Agregar
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" ></path>
+            </svg>
+          </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Detalle de rutina actualizada exitosamente!</MensajeExito>
+          )}
+        </div>
       </div>
+  );
+
+  const bodyEliminar = (
+    <div style={scrollVertical}>
+      <h3 className="container-header"> 201 - Eliminar Detalle de Rutina</h3>
+      <div className="relleno-eliminar">
+        {" "}
+        202 - General
+        <div className="container-fluid">
+          <Formulario1>
+            <Columna>
+            <InputGeneral
+                estado={idRutina}
+                cambiarEstado={cambiaridRutina}
+                tipo="number"
+                label="Código de la rutina"
+                placeholder="Ejemplo: 1"
+                name="idRutina"
+                leyendaError="El código debe ser un número entre 1 y 100 dígitos"
+                expresionRegular={expresionesRegulares.idRutina}
+              />
+            </Columna>
+          </Formulario1>
+          </div>
+      </div>
+        <div className="container-footer">
+        <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalEliminar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button className="btn-eliminar" onClick={() => showQuestionDel()}>
+          Eliminar
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Detalle de rutina eliminada exitosamente!</MensajeExito>
+          )}
+        </div>
     </div>
   );
 
   function showQuestionDel() {
     Swal.fire({
-      title: "Seguro que desea Eliminar el Usuario?",
+      title: "¿Deseas eliminar los detalles de esta rutina?",
       showDenyButton: true,
-      confirmButtonText: "Eliminar",
-      denyButtonText: `Cancelar`,
+      denyButtonText: `No, cancelar`,
+      confirmButtonText: "Si, eliminar",
+      width: 'fixed',
+      height: '50%',
+      customClass: {
+        confirmButton: 'btn-eliminar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire("Eliminado Correctamente!", "", "success");
+        Swal.fire("Detalle de rutina eliminada correctamente!", "", "success");
         peticionDelete();
         //peticionDeleteKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios NO Guardados", "", "info");
+        Swal.fire("Detalle de rutina no ha sido eliminada", "", "info");
       }
     });
   }
-
-  const bodyEliminar = (
-    <div style={scrollVertical}>
-      <h3>Eliminar Usuario</h3>
-      <div className="relleno-general">
-        {" "}
-        General
-        <div className="container-fluid">
-          <Formulario1>
-            <Columna>
-              <h4>Codigo: {IdUsuario.campo}</h4>
-              <h4>Nombre: {Nombre.campo}</h4>
-              <h4>Nombre De Usuario: {NombreUsuario.campo}</h4>
-              <h4>Rol: {Rol.campo}</h4>
-              <h4>Correo: {Correo.campo}</h4>
-            </Columna>
-          </Formulario1>
-        </div>
-      </div>
-
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalEliminar()} color="success">
-          {" "}
-          Cancelar{" "}
-        </Button>
-        <Button color="success" onClick={() => showQuestionDel()}>
-          Eliminar
-        </Button>
-      </div>
-    </div>
-  );
-
-  function showQuestionCambioClave() {
-    Swal.fire({
-      title: "Seguro que desea Cambiar la Clave?",
-      showDenyButton: true,
-      confirmButtonText: "Eliminar",
-      denyButtonText: `Cancelar`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire("Cambiada Correctamente!", "", "success");
-        //aqui va el metodo para cambiar la contrasena
-      } else if (result.isDenied) {
-        Swal.fire("Cambios NO Guardados", "", "info");
-      }
-    });
-  }
-
-  const bodyCambioClave = (
-    <div style={scrollVertical}>
-      <div className="relleno-general">
-        <div className="container-fluid">
-          <Formulario1>
-            <ColumnaCenter>
-              <InputGeneral
-                estado={Clave}
-                cambiarEstado={cambiarClave}
-                tipo="password"
-                label="Contraseña Actual"
-                placeholder="Introduzca la contraseña actual"
-                name="ClaveActual"
-                leyendaError="La contraseña actual es requerida"
-                expresionRegular={expresionesRegulares.Clave}
-                value={Clave.campo}
-              />
-
-              <InputGeneral
-                estado={NuevaClave}
-                cambiarEstado={cambiarNuevaClave}
-                tipo="password"
-                label="Nueva Contraseña"
-                placeholder="Introduzca la nueva contraseña"
-                name="NuevaClave"
-                leyendaError="La contraseña debe tener al menos 8 caracteres"
-                expresionRegular={expresionesRegulares.Clave}
-                value={NuevaClave.campo}
-              />
-
-              <InputGeneral
-                estado={ConfirmarNuevaClave}
-                cambiarEstado={cambiarConfirmarNuevaClave}
-                tipo="password"
-                label="Confirmar Nueva Contraseña"
-                placeholder="Confirme la nueva contraseña"
-                name="ConfirmarNuevaClave"
-                leyendaError="Las contraseñas no coinciden"
-                expresionRegular={expresionesRegulares.Clave}
-                value={ConfirmarNuevaClave.campo}
-              />
-            </ColumnaCenter>
-          </Formulario1>
-        </div>
-      </div>
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalCambioClave()} color="success">
-          {" "}
-          Cancelar{" "}
-        </Button>
-        <Button color="success" onClick={() => showQuestionCambioClave()}>
-          Cambiar
-        </Button>
-      </div>
-    </div>
-  );
 
   return (
     <div className="Cliente">
       <div className="banner">
         <h3>
-          <b>200-Mantenimiento Usuarios</b>
+          200-Mantenimiento Detalle de Rutina
         </h3>
       </div>
-      <div className="btn-agrega">
-        <Button
-          startIcon={<AddBox />}
-          onClick={() => abrirCerrarModalInsertar()}
-        >
-          Agregar Usuario
-        </Button>
+      <div> 
+      <button className="btn-añadir" onClick={() => abrirCerrarModalInsertar()}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56"><path fill="currentColor" d="M46.867 9.262c-2.39-2.39-5.765-2.766-9.75-2.766H18.836c-3.937 0-7.312.375-9.703 2.766S6.39 15.004 6.39 18.918v18.094c0 4.008.351 7.336 2.742 9.726s5.766 2.766 9.773 2.766h18.211c3.985 0 7.36-.375 9.75-2.766c2.391-2.39 2.742-5.718 2.742-9.726V18.988c0-4.008-.351-7.36-2.742-9.726m-1.031 9.07v19.313c0 2.437-.305 4.921-1.71 6.351c-1.43 1.406-3.962 1.734-6.376 1.734h-19.5c-2.414 0-4.945-.328-6.351-1.734c-1.43-1.43-1.735-3.914-1.735-6.352V18.403c0-2.46.305-4.992 1.711-6.398c1.43-1.43 3.984-1.734 6.445-1.734h19.43c2.414 0 4.945.328 6.375 1.734c1.406 1.43 1.711 3.914 1.711 6.328M28 40.504c.938 0 1.688-.727 1.688-1.664v-9.164h9.164c.937 0 1.687-.797 1.687-1.664c0-.914-.75-1.688-1.687-1.688h-9.164v-9.187c0-.938-.75-1.664-1.688-1.664a1.64 1.64 0 0 0-1.664 1.664v9.187h-9.164c-.938 0-1.688.774-1.688 1.688c0 .867.75 1.664 1.688 1.664h9.164v9.164c0 .937.727 1.664 1.664 1.664"></path></svg>
+       Añadir 
+        </button>
       </div>
       <br />
       <br />
       <MaterialTable
         columns={columnas}
         data={data}
-        title="Detalle de Rutinas"
+        title="Detalle de rutinas"
         actions={[
           {
             icon: Edit,
-            tooltip: "Modificar Modificar",
-            onClick: (event, rowData) => seleccionarUsuario(rowData, "Editar"),
+            tooltip: "Modificar",
+            onClick: (event, rowData) => seleccionarRutina(rowData, "Editar"),
           },
           {
             icon: DeleteOutline,
-            tooltip: "Eliminar Usuario",
+            tooltip: "Eliminar",
             onClick: (event, rowData) =>
-              seleccionarUsuario(rowData, "Eliminar"),
+              seleccionarRutina(rowData, "Eliminar"),
           },
-          {
-            icon: Password,
-            tooltip: "Cambiar Contrasena",
-            onClick: (event, rowData) => abrirCerrarModalCambioClave(),
-          },
+          
         ]}
         options={{
           actionsColumnIndex: -1,
@@ -808,21 +660,28 @@ const RutinaAccion = () => {
         }}
         localization={{
           header: { actions: "Acciones" },
-          toolbar: { searchPlaceholder: "Busqueda" },
+          toolbar: { searchPlaceholder: "Busqueda", columnsButton: "Mostrar columnas", },
+          selectedRows: {
+            text: "{0} fila seleccionada",  // Cambia aquí para español
+            textMultiple: "{0} filas seleccionadas", // Para múltiples filas seleccionadas
+          },
+      pagination: {
+        labelDisplayedRows: '{from}-{to} de {count}',
+        labelRowsSelect: 'filas',
+        labelRowsPerPage: 'Filas por página',
+      },
+  
         }}
       />
 
-      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar}>
+      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar} style={modalStyles}>
         {bodyInsertar}
       </Modal>
-      <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
+      <Modal open={modalEditar} onClose={abrirCerrarModalEditar} style={modalStyles}>
         {bodyEditar}
       </Modal>
-      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar}>
+      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar} style={modalStylesDelete}>
         {bodyEliminar}
-      </Modal>
-      <Modal open={modalCambioClave} onClose={abrirCerrarModalCambioClave}>
-        {bodyCambioClave}
       </Modal>
     </div>
   );

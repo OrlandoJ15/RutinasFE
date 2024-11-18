@@ -16,7 +16,7 @@ h1 {
   font-family: var(--font-primary);
 }
 
-button {
+/*button {
   border-radius: 0.5rem;
   border: 1px solid transparent;
   padding: 0.6rem 1.2rem;
@@ -37,16 +37,16 @@ button:focus-visible {
 }
 
 /* Diseño responsive */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   /*h1 {
     font-size: var(--font-md);
   }*/
 
-  button {
+  /*button {
     font-size: var(--font-sm);
     padding: 0.5rem 1rem;
   }
-}
+}*/
 
 body {
   margin: 0;

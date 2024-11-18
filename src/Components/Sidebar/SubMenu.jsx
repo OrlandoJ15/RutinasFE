@@ -10,10 +10,11 @@ const SidebarLink = styled(Link)`
   align-items: center;
   padding: var(--spacing-base);
   list-style: none;
-  height: 65px;
+  height: 90px;
   text-decoration: none;
   font-size: var(--font-size-heading); 
   font-family: var(--font-primary); 
+  font-size: 1.3rem;
 
   &:hover {
     background: var(--color-terciario); 
@@ -26,7 +27,7 @@ const SidebarLabel = styled.span`
   margin-left: 16px;
   color: var(--color-text); 
   font-family: var(--font-primary); 
-  font-size: var(--font-size-base); 
+  font-size: var(--font-size-base);
 `;
 
 const DropdownLink = styled(Link)`

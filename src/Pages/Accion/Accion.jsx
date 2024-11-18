@@ -134,7 +134,7 @@ const Accion = () => {
         icon: "error",
         //iconHtml: "<FontAwesomeIcon icon={faExclamationTriangle} />",
         title: "Error",
-        text: "Este ejercicio ya fue creado.",
+        text: "Ejercicio ya existente",
         // customClass: {
         //   icon: 'no-icon',
         // },
@@ -190,17 +190,21 @@ const Accion = () => {
 
   function showQuestionPost() {
     Swal.fire({
-      title: "¿Desea guardar los cambios?",
+      title: "¿Desea agregar a este ejercicio?",
       showDenyButton: true,
-      confirmButtonText: "Guardar",
-      denyButtonText: "Cancelar",
+      confirmButtonText: "Si, agregar",
+      denyButtonText: "No, cancelar",
+      customClass: {
+        confirmButton: 'btn-agregar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Guardado Correctamente!", "", "success");
+        Swal.fire("Ejercicio agregado correctamente!", "", "success");
         peticionPost();
         //peticionPostKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios No Guardados", "", "info");
+        Swal.fire("No se agregó el cliente", "", "info");
       }
     });
   }
@@ -250,17 +254,21 @@ const Accion = () => {
   //REVISAR LAS COMILLAS
   function showQuestionPut() {
     Swal.fire({
-      title: "¿Desea guardar los cambios?",
+      title: "¿Desea editar el ejercicio?",
       showDenyButton: true,
-      confirmButtonText: "Editar",
-      denyButtonText: "Cancelar",
+      confirmButtonText: "Si, editar",
+      denyButtonText: "No, cancelar",
+      customClass: {
+        confirmButton: 'btn-agregar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Guardado Correctamente!", "", "success");
         peticionPut();
         //peticionPutKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios No Guardados", "", "info");
+        Swal.fire("No se editaron los campos", "", "info");
       }
     });
   }
@@ -375,15 +383,46 @@ const Accion = () => {
 
   //////////////////////////MODALES////////////////////////
 
+  const scrollVertical = {
+    width: "70%",
+    height: "100%",
+    overflowX: "hidden",
+    overflowY: "scroll",
+    position: "relative",
+    inset: "0",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  };
+
+  const modalStyles = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    width: "100%",
+    height: "100%",
+    transform: "translate(-50%, -50%)",
+    zIndex: 1040,
+    padding: "0 0 0 25%",
+  };
+
+  const modalStylesDelete = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    width: "100%",
+    height: "100%",
+    transform: "translate(-50%, -50%)",
+    zIndex: 1040,
+    padding: "0 0 0 25%",
+  };
+
   /////////////////////////INCLUIR ARTICULOS////////////////////////////
 
   const bodyInsertar = (
-    <div className="scrollVertical" >
-      <header></header>
-      <h3>Agregar Ejercicio</h3>
+    <div style={scrollVertical}>
+      <h3 className="container-header"> 201 - Agregar Ejercicio</h3>
       <div className="relleno-general">
         {" "}
-        General
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
@@ -391,10 +430,10 @@ const Accion = () => {
                 estado={nombreAccion}
                 cambiarEstado={cambiarnombreAccion}
                 tipo="text"
-                label="Nombre Ejercicio"
-                placeholder="Introduzca nombre del ejercicio"
+                label="Nombre del ejercicio"
+                placeholder="Ejemplo: Press de banca"
                 name="nombreAccion"
-                leyendaError="Solamente puede contener letras."
+                leyendaError="El nombre del ejercicio debe tener entre 3 y 50 caracteres alfanuméricos."
                 expresionRegular={expresionesRegulares.nombreAccion}
                 onChange={""}
                 onBlur={""}
@@ -404,10 +443,10 @@ const Accion = () => {
                 estado={grupoMusculo}
                 cambiarEstado={cambiargrupoMusculo}
                 tipo="text"
-                label="Grupo Musculo"
-                placeholder="Introduzca el grupo de musculo"
+                label="Grupo muscular"
+                placeholder="Ejemplo: Pecho, Espalda, Piernas"
                 name="grupoMusculo"
-                leyendaError="Solamente puede contener letras."
+                leyendaError="El grupo muscular debe tener entre 3 y 50 caracteres alfabéticos."
                 expresionRegular={expresionesRegulares.grupoMusculo}
                 onChange={""}
                 onBlur={""}
@@ -418,9 +457,9 @@ const Accion = () => {
                 cambiarEstado={cambiardescripcion}
                 tipo="text"
                 label="Descripción"
-                placeholder="Introduzca la descripción del ejercicio"
+                placeholder="Describe brevemente la acción."
                 name="descripcion"
-                leyendaError="Solamente puede contener letras, numeros y signos de puntuación."
+                leyendaError="La descripción debe tener como máximo 200 caracteres."
                 expresionRegular={expresionesRegulares.descripcion}
                 onChange={""}
                 onBlur={""}
@@ -430,10 +469,10 @@ const Accion = () => {
                 estado={creado}
                 cambiarEstado={cambiarcreado}
                 tipo="date"
-                label="Creado"
-                placeholder="Fecha de creación del ejercicio"
+                label="Fecha de creación"
+                placeholder="DD/MM/AAAA"
                 name="creado"
-                leyendaError="Por favor usar formato de calendario DD/MM/YY."
+                leyendaError="La fecha de creación debe estar en formato DD/MM/AAAA."
                 expresionRegular={expresionesRegulares.creado}
                 onChange={""}
                 onBlur={""}
@@ -448,36 +487,40 @@ const Accion = () => {
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena todos los datos correctamente.
+            <b>Error:</b> Por favor rellena los datos del ejercicio correctamente.
           </p>
         </MensajeError>
       )}
 
-      <div align="right">
-      <div className="btn-primary">
-        <Button onClick={() => abrirCerrarModalInsertar()}>
-          {" "}
-          Cancelar{" "}
-        </Button>
-        </div>
-        <div className="btn-primary">
-        <Button onClick={""} type="submit">
-          {" "}
+      <div className="container-footer">
+          <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalInsertar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button class="btn-agregar" onClick={""} type="submit">
           Agregar
-        </Button>
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" ></path>
+            </svg>
+          </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Ejercicio agregado exitosamente!</MensajeExito>
+          )}
         </div>
-        {formularioValido === true && (
-          <MensajeExito>Ejercicio agregado exitosamente!</MensajeExito>
-        )}
-      </div>
     </div>
   );
 
   const bodyEditar = (
-    <div className="scrollVertical">
-      <h3>Editar Ejercicio</h3>
+    <div style={scrollVertical}>
+      <h3 className="container-header"> 201 - Modificar Ejercicio</h3>
       <div className="relleno-general">
-        General
+        {" "}
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
@@ -485,10 +528,10 @@ const Accion = () => {
                 estado={nombreAccion}
                 cambiarEstado={cambiarnombreAccion}
                 tipo="text"
-                label="Nombre Ejercicio"
-                placeholder="Introduzca nombre del ejercicio"
+                label="Nombre del ejercicio"
+                placeholder="Ejemplo: Press de banca"
                 name="nombreAccion"
-                leyendaError="Solamente puede contener letras."
+                leyendaError="El nombre del ejercicio debe tener entre 3 y 50 caracteres alfanuméricos."
                 expresionRegular={expresionesRegulares.nombreAccion}
                 onChange={""}
                 onBlur={""}
@@ -498,10 +541,10 @@ const Accion = () => {
                 estado={grupoMusculo}
                 cambiarEstado={cambiargrupoMusculo}
                 tipo="text"
-                label="Grupo Musculo"
-                placeholder="Introduzca el grupo de musculo"
+                label="Grupo muscular"
+                placeholder="Ejemplo: Pecho, Espalda, Piernas"
                 name="grupoMusculo"
-                leyendaError="Solamente puede contener letras."
+                leyendaError="El grupo muscular debe tener entre 3 y 50 caracteres alfabéticos."
                 expresionRegular={expresionesRegulares.grupoMusculo}
                 onChange={""}
                 onBlur={""}
@@ -512,9 +555,9 @@ const Accion = () => {
                 cambiarEstado={cambiardescripcion}
                 tipo="text"
                 label="Descripción"
-                placeholder="Introduzca la descripción del ejercicio"
+                placeholder="Describe brevemente la acción."
                 name="descripcion"
-                leyendaError="Solamente puede contener letras, numeros y signos de puntuación."
+                leyendaError="La descripción debe tener como máximo 200 caracteres."
                 expresionRegular={expresionesRegulares.descripcion}
                 onChange={""}
                 onBlur={""}
@@ -528,44 +571,63 @@ const Accion = () => {
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena el formulario correctamente.
+            <b>Error:</b> Por favor rellena los datos del ejercicio correctamente.
           </p>
         </MensajeError>
       )}
-
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalEditar()}> Cancelar </Button>
-        <Button color="primary" onClick={""}>
-          Editar
-        </Button>
+        <div className="container-footer">
+        <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalEditar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button class="btn-agregar" onClick={""} type="submit">
+          Agregar
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" ></path>
+            </svg>
+          </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Ejercicio actualizado exitosamente!</MensajeExito>
+          )}
+        </div>
       </div>
-    </div>
   );
 
   function showQuestionDel() {
     Swal.fire({
-      title: "¿Seguro que deseas eliminar el ejercicio?",
+      title: "¿Deseas eliminar este ejercicio?",
       showDenyButton: true,
-      confirmButtonText: "Eliminar",
-      denyButtonText: `Cancelar`,
+      denyButtonText: `No, cancelar`,
+      confirmButtonText: "Si, eliminar",
+      width: 'fixed',
+      height: '50%',
+      customClass: {
+        confirmButton: 'btn-eliminar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire("Ejercicio eliminado!", "", "success");
+        Swal.fire("Ejercicio eliminado correctamente!", "", "success");
         peticionDelete();
         //peticionDeleteKardex();
       } else if (result.isDenied) {
-        Swal.fire("Se canceló la acción", "", "info");
+        Swal.fire("Ejercicio no ha sido eliminado", "", "info");
       }
     });
   }
 
   const bodyEliminar = (
-    <div className="scrollVertical">
-      <h3>Eliminar Ejercicio</h3>
-      <div className="relleno-general">
+    <div style={scrollVertical}>
+      <h3 className="container-header"> 201 - Eliminar Ejercicio</h3>
+      <div className="relleno-eliminar">
         {" "}
-        General
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
@@ -573,8 +635,8 @@ const Accion = () => {
                 estado={idAccion}
                 cambiarEstado={cambiaridAccion}
                 tipo="number"
-                label="Codigo de ejercicio"
-                placeholder="Introduzca codigo del ejercicio"
+                label="Codigo del ejercicio"
+                placeholder="Ejemplo: 1"
                 name="idAccion"
                 leyendaError="Solamente puede contener números."
                 expresionRegular={expresionesRegulares.idAccion}
@@ -582,50 +644,41 @@ const Accion = () => {
                 onBlur={""}
                 autofocus
               />
-              <InputGeneral
-                estado={nombreAccion}
-                cambiarEstado={cambiarnombreAccion}
-                tipo="text"
-                label="Nombre Ejercicio"
-                placeholder="Introduzca nombre del ejercicio"
-                name="nombreAccion"
-                leyendaError="Solamente puede contener letras."
-                expresionRegular={expresionesRegulares.nombreAccion}
-                onChange={""}
-                onBlur={""}
-                autofocus
-              />
             </Columna>
           </Formulario1>
-        </div>
+          </div>
       </div>
-
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalEliminar()} color="success">
-          {" "}
-          Cancelar{" "}
-        </Button>
-        <Button color="success" onClick={() => showQuestionDel()}>
+        <div className="container-footer">
+        <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalEliminar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button className="btn-eliminar" onClick={() => showQuestionDel()}>
           Eliminar
-        </Button>
-      </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Ejercicio eliminado exitosamente!</MensajeExito>
+          )}
+        </div>
     </div>
   );
+
 
   return (
     <div className="Cliente">
       <div className="banner">
         <h3>
-          <b>200-Mantenimiento de Ejercicios</b>
+          200-Mantenimiento Ejercicios
         </h3>
       </div>
-      <div className="btn-agrega">
-        <Button
-          startIcon={<AddBox />}
-          onClick={() => abrirCerrarModalInsertar()}
-        >
-          Agregar Ejercicio
-        </Button>
+      <div> 
+      <button className="btn-añadir" onClick={() => abrirCerrarModalInsertar()}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56"><path fill="currentColor" d="M46.867 9.262c-2.39-2.39-5.765-2.766-9.75-2.766H18.836c-3.937 0-7.312.375-9.703 2.766S6.39 15.004 6.39 18.918v18.094c0 4.008.351 7.336 2.742 9.726s5.766 2.766 9.773 2.766h18.211c3.985 0 7.36-.375 9.75-2.766c2.391-2.39 2.742-5.718 2.742-9.726V18.988c0-4.008-.351-7.36-2.742-9.726m-1.031 9.07v19.313c0 2.437-.305 4.921-1.71 6.351c-1.43 1.406-3.962 1.734-6.376 1.734h-19.5c-2.414 0-4.945-.328-6.351-1.734c-1.43-1.43-1.735-3.914-1.735-6.352V18.403c0-2.46.305-4.992 1.711-6.398c1.43-1.43 3.984-1.734 6.445-1.734h19.43c2.414 0 4.945.328 6.375 1.734c1.406 1.43 1.711 3.914 1.711 6.328M28 40.504c.938 0 1.688-.727 1.688-1.664v-9.164h9.164c.937 0 1.687-.797 1.687-1.664c0-.914-.75-1.688-1.687-1.688h-9.164v-9.187c0-.938-.75-1.664-1.688-1.664a1.64 1.64 0 0 0-1.664 1.664v9.187h-9.164c-.938 0-1.688.774-1.688 1.688c0 .867.75 1.664 1.688 1.664h9.164v9.164c0 .937.727 1.664 1.664 1.664"></path></svg>
+       Añadir 
+        </button>
       </div>
       <br />
       <br />
@@ -636,12 +689,12 @@ const Accion = () => {
         actions={[
           {
             icon: Edit,
-            tooltip: "Modificar Ejercicio",
+            tooltip: "Modificar",
             onClick: (event, rowData) => seleccionarAccion(rowData, "Editar"),
           },
           {
             icon: DeleteOutline,
-            tooltip: "Eliminar Ejercicio",
+            tooltip: "Eliminar",
             onClick: (event, rowData) =>
               seleccionarAccion(rowData, "Eliminar"),
           },
@@ -660,17 +713,27 @@ const Accion = () => {
         }}
         localization={{
           header: { actions: "Acciones" },
-          toolbar: { searchPlaceholder: "Busqueda" },
+          toolbar: { searchPlaceholder: "Busqueda", columnsButton: "Mostrar columnas", },
+          selectedRows: {
+            text: "{0} fila seleccionada",  // Cambia aquí para español
+            textMultiple: "{0} filas seleccionadas", // Para múltiples filas seleccionadas
+          },
+      pagination: {
+        labelDisplayedRows: '{from}-{to} de {count}',
+        labelRowsSelect: 'filas',
+        labelRowsPerPage: 'Filas por página',
+      },
+  
         }}
       />
 
-      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar} className="modalStyles">
+      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar} style={modalStyles}>
         {bodyInsertar}
       </Modal>
-      <Modal open={modalEditar} onClose={abrirCerrarModalEditar} className="modalStyles">
+      <Modal open={modalEditar} onClose={abrirCerrarModalEditar} style={modalStyles}>
         {bodyEditar}
       </Modal>
-      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar} className="modalStylesDelete">
+      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar} style={modalStylesDelete}>
         {bodyEliminar}
       </Modal>
     </div>

@@ -65,7 +65,7 @@
     
     /* Estilos de borde */
     --border-style: solid;
-    --border-color: var(--color-dark);
+    --border-color: var(--color-text);
 
     /* Tamaño del botón */
     --btn-padding-y: var(--spacing-sm); /* Espaciado vertical */

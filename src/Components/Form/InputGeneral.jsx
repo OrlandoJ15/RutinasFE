@@ -29,7 +29,7 @@ const InputGeneral = ({ estado, cambiarEstado, tipo, label, placeholder, name, l
 	};
 
 	const EstiloLabell = {
-		fontSize: '80%'
+		fontSize: '1rem'
 	};
 
 	const EstiloInput = {

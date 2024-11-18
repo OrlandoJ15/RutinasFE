@@ -16,6 +16,9 @@ import {
 import "../../Styles/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import '../Cliente/Cliente.css';
+import "../../Styles/variables.css";
+import * as plusicon from "react-icons/cg";
 
 //////////////////////////INICIA SECCION COLUMNAS///////////////////////////
 //////////////////////////INICIA GRID INICIAL//////////////////////////
@@ -192,8 +195,8 @@ const Cliente = () => {
       Swal.fire({
         icon: "error",
         //iconHtml: "<FontAwesomeIcon icon={faExclamationTriangle} />",
-        title: "Cuidado",
-        text: "Codigo Cliente Existente, Intente Nevamente",
+        title: "Error",
+        text: "Codigo de cliente ya existe",
         // customClass: {
         //   icon: 'no-icon',
         // },
@@ -249,35 +252,24 @@ const Cliente = () => {
 
   function showQuestionPost() {
     Swal.fire({
-      title: "¿Desea guardar los cambios?",
+      title: "¿Desea agregar a este cliente?",
       showDenyButton: true,
-      confirmButtonText: "Guardar",
-      denyButtonText: "Cancelar",
+      confirmButtonText: "Si, agregar",
+      denyButtonText: "No, cancelar",
+      customClass: {
+        confirmButton: 'btn-agregar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Guardado Correctamente!", "", "success");
+        Swal.fire("Cliente agregado correctamente!", "", "success");
         peticionPost();
         //peticionPostKardex();
       } else if (result.isDenied) {
-        Swal.fire("No se guardaron los cambios", "", "info");
+        Swal.fire("No se agregó el cliente", "", "info");
       }
     });
   }
-
-  // const peticionPostKardex = async () => {
-  //   const options = {
-  //     Serie: Serie.campo,
-  //     Numero: Numero.campo,
-  //     Nombre: Nombre.campo,
-  //     Monto: Monto.campo,
-  //     IdUsuario: IdUsuario.campo,
-  //   };
-
-  //   await axios.post(baseUrlPostKardex, options).then((response) => {
-  //     setData(data.concat(response.data));
-  //     abrirCerrarModalInsertar();
-  //   });
-  // };
 
   //REVISAR LOS PARENTESIS
 
@@ -317,10 +309,14 @@ const Cliente = () => {
   //REVISAR LAS COMILLAS
   function showQuestionPut() {
     Swal.fire({
-      title: "¿Desea editar los campos?",
+      title: "¿Desea editar el cliente?",
       showDenyButton: true,
-      confirmButtonText: "Editar",
-      denyButtonText: "Cancelar",
+      confirmButtonText: "Si, editar",
+      denyButtonText: "No, cancelar",
+      customClass: {
+        confirmButton: 'btn-agregar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Guardado Correctamente!", "", "success");
@@ -457,10 +453,6 @@ const Cliente = () => {
 
   //////////////////////////FINALIZA PETICION SELECT////////////////////////
 
-  ////////////////////////// PETICION CAMBIO CLAVE////////////////////////
-
-  //////////////////////////FINALIZA PETICION CAMBIO CLAVE////////////////////////
-
   //////////////////////////MODALES////////////////////////
 
   const abrirCerrarModalInsertar = () => {
@@ -486,8 +478,8 @@ const Cliente = () => {
     overflowX: "hidden",
     overflowY: "scroll",
     position: "relative",
-    backgroundcolor: "rgba(0, 0, 0, 0.25)",
-    backdropfilter: "blur(50px)",
+    inset: "0",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   };
 
   const modalStyles = {
@@ -512,28 +504,16 @@ const Cliente = () => {
     padding: "0 0 0 25%",
   };
 
-  const ListStyleButton = {
-    margin: "20px 0px 0px 0px",
-  };
-
-  const StyleLabelAfterButton = {
-    margin: "0px 0px 10px 0px",
-  };
-
-  const Text = {
-    fontWeight: "bold",
-  };
-
   ////////////////////////////CSS SCROLL, MODAL////////////////////////////
 
-  /////////////////////////INCLUIR ARTICULOS////////////////////////////
+  /////////////////////////INCLUIR CLIENTE////////////////////////////
 
   const bodyInsertar = (
     <div style={scrollVertical}>
-      <h3 className="container-header"> Agregar Cliente</h3>
+      <h3 className="container-header"> 201 - Agregar Cliente</h3>
       <div className="relleno-general">
         {" "}
-        General
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
@@ -541,8 +521,8 @@ const Cliente = () => {
                 estado={nombre}
                 cambiarEstado={cambiarnombre}
                 tipo="text"
-                label="Nombre del cliente"
-                placeholder="Introduzca el nombre del cliente"
+                label="	Nombre completo"
+                placeholder="Ejemplo: Juan Pérez"
                 name="nombre"
                 leyendaError="El nombre debe tener entre 2 y 50 letras y solo puede incluir letras y espacios"
                 expresionRegular={expresionesRegulares.nombre}
@@ -554,95 +534,99 @@ const Cliente = () => {
                 estado={email}
                 cambiarEstado={cambiaremail}
                 tipo="text"
-                label="Email"
-                placeholder="Introduzca el correo del cliente"
+                label="Correo electrónico"
+                placeholder="nombre@dominio.com"
                 name="email"
-                leyendaError="Ingrese un email válido, como usuario@dominio.com"
+                leyendaError="Ingrese un correo válido, como usuario@dominio.com"
                 expresionRegular={expresionesRegulares.email}
               />
 
               <InputGeneral
                 estado={telefono}
                 cambiarEstado={cambiartelefono}
-                tipo="number"
+                tipo="text"
                 label="Número de teléfono"
-                placeholder="Introduzca el número de teléfono"
+                placeholder="1456-7890"
                 name="telefono"
                 leyendaError="Ingrese un número de teléfono válido de 8 a 12 dígitos"
                 expresionRegular={expresionesRegulares.telefono}
               />
 
               <InputGeneral
-                estado={sexo}
-                cambiarEstado={cambiarsexo}
-                tipo="text"
-                label="sexo"
-                placeholder="Género"
-                name="sexo"
-                leyendaError="El sexo debe ser M o F"
-                expresionRegular={expresionesRegulares.sexo}
-              />
-
-              <InputGeneral
                 estado={fechaNacimiento}
                 cambiarEstado={cambiarfechaNacimiento}
                 tipo="date"
-                label="fechaNacimiento"
-                placeholder="Introduzca la fecha de nacimiento"
+                label="Fecha de nacimiento"
+                placeholder="DD/MM/AAAA"
                 name="fechaNacimiento"
                 leyendaError="La fecha de nacimiento debe estar en el formato DD-MM-AAAA"
                 expresionRegular={expresionesRegulares.fechaNacimiento}
               />
 
               <InputGeneral
-                estado={disciplina}
-                cambiarEstado={cambiardisciplina}
+                estado={sexo}
+                cambiarEstado={cambiarsexo}
                 tipo="text"
-                label="disciplina"
-                placeholder="Introduzca la disciplina"
-                name="disciplina"
-                leyendaError="La disciplina debe contener entre 3 y 30 caracteres alfabéticos"
-                expresionRegular={expresionesRegulares.disciplina}
+                label="Sexo"
+                placeholder="Ejemplo: M o F"
+                name="sexo"
+                leyendaError="El sexo debe ser M o F"
+                expresionRegular={expresionesRegulares.sexo}
               />
-              <InputGeneral
-                estado={antecedente}
-                cambiarEstado={cambiarantecedente}
-                tipo="text"
-                label="antecedente"
-                placeholder="Introduzca el antecedente"
-                name="antecedente"
-                leyendaError="El antecedente no debe exceder los 200 caracteres"
-                expresionRegular={expresionesRegulares.antecedente}
-              />
-              <InputGeneral
-                estado={descripcion}
-                cambiarEstado={cambiardescripcion}
-                tipo="text"
-                label="descripcion"
-                placeholder="Introduzca alguna descripción"
-                name="descripcion"
-                leyendaError="La descripción no debe exceder los 500 caracteres"
-                expresionRegular={expresionesRegulares.descripcion}
-              />
+
               <InputGeneral
                 estado={altura}
                 cambiarEstado={cambiaraltura}
                 tipo="text"
-                label="altura"
-                placeholder="Altura"
+                label="Altura (cm)"
+                placeholder="Ejemplo: 175"
                 name="altura"
                 leyendaError="La altura debe ser un número en cm, opcionalmente con hasta 2 decimales"
                 expresionRegular={expresionesRegulares.altura}
               />
+
               <InputGeneral
                 estado={peso}
                 cambiarEstado={cambiarpeso}
                 tipo="text"
-                label="peso"
-                placeholder="Peso"
+                label="Peso (kg)"
+                placeholder="Ejemplo: 70"
                 name="peso"
                 leyendaError="El peso debe ser un número en kg, opcionalmente con hasta 2 decimales"
                 expresionRegular={expresionesRegulares.peso}
+              />
+
+              <InputGeneral
+                estado={disciplina}
+                cambiarEstado={cambiardisciplina}
+                tipo="text"
+                label="Disciplina"
+                placeholder="Ejemplo: Yoga, Boxeo, Pilates"
+                name="disciplina"
+                leyendaError="La disciplina debe contener entre 3 y 30 caracteres alfabéticos"
+                expresionRegular={expresionesRegulares.disciplina}
+              />
+
+              <InputGeneral
+                estado={antecedente}
+                cambiarEstado={cambiarantecedente}
+                tipo="text"
+                label="Antecedentes médicos"
+                placeholder="Ejemplo: Asma, Hipertensión"
+                name="antecedente"
+                leyendaError="El antecedente no debe exceder los 200 caracteres"
+                expresionRegular={expresionesRegulares.antecedente}
+              />
+
+              <InputGeneral
+                estado={descripcion}
+                cambiarEstado={cambiardescripcion}
+                tipo="text"
+                label="Descripción personal"
+                placeholder="Describe a tu cliente"
+                name="descripcion"
+                leyendaError="La descripción no debe exceder los 500 caracteres"
+                expresionRegular={expresionesRegulares.descripcion}
               />
             </Columna>
           </Formulario1>
@@ -653,26 +637,29 @@ const Cliente = () => {
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena el formulario correctamente.
+            <b>Error:</b> Por favor rellena los datos del cliente correctamente.
           </p>
         </MensajeError>
       )}
 
       <div className="container-footer">
-        <div className="btn-cancelar">
-          <Button onClick={() => abrirCerrarModalInsertar()}>
-            {" "}
-            Cancelar{" "}
-          </Button>
+          <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalInsertar()} >
+        Cancelar
+        </button>
           </div>
-          <div className="btn-agrega">
-          <Button onClick={""} type="submit">
-            {" "}
-            Insertar
-          </Button>
+          <div>
+        <button class="btn-agregar" onClick={""} type="submit">
+          Agregar
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" ></path>
+            </svg>
+          </div>
+        </button>
           </div>
           {formularioValido === true && (
-            <MensajeExito>Formulario enviado exitosamente!</MensajeExito>
+            <MensajeExito>Cliente agregado exitosamente!</MensajeExito>
           )}
         </div>
     </div>
@@ -680,18 +667,19 @@ const Cliente = () => {
 
   const bodyEditar = (
     <div style={scrollVertical}>
-      <h3>Editar Usuario v2</h3>
+      <h3 className="container-header"> 201 - Modificar Cliente</h3>
       <div className="relleno-general">
-        General
+        {" "}
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
-            <InputGeneral
+              <InputGeneral
                 estado={nombre}
                 cambiarEstado={cambiarnombre}
                 tipo="text"
-                label="Nombre del cliente"
-                placeholder="Introduzca el nombre del cliente"
+                label="	Nombre completo"
+                placeholder="Ejemplo: Juan Pérez"
                 name="nombre"
                 leyendaError="El nombre debe tener entre 2 y 50 letras y solo puede incluir letras y espacios"
                 expresionRegular={expresionesRegulares.nombre}
@@ -703,95 +691,99 @@ const Cliente = () => {
                 estado={email}
                 cambiarEstado={cambiaremail}
                 tipo="text"
-                label="Email"
-                placeholder="Introduzca el correo del cliente"
+                label="Correo electrónico"
+                placeholder="nombre@dominio.com"
                 name="email"
-                leyendaError="Ingrese un email válido, como usuario@dominio.com"
+                leyendaError="Ingrese un correo válido, como usuario@dominio.com"
                 expresionRegular={expresionesRegulares.email}
               />
 
               <InputGeneral
                 estado={telefono}
                 cambiarEstado={cambiartelefono}
-                tipo="number"
+                tipo="text"
                 label="Número de teléfono"
-                placeholder="Introduzca el número de teléfono"
+                placeholder="1456-7890"
                 name="telefono"
                 leyendaError="Ingrese un número de teléfono válido de 8 a 12 dígitos"
                 expresionRegular={expresionesRegulares.telefono}
               />
 
               <InputGeneral
-                estado={sexo}
-                cambiarEstado={cambiarsexo}
-                tipo="text"
-                label="sexo"
-                placeholder="Género"
-                name="sexo"
-                leyendaError="El sexo debe ser M o F"
-                expresionRegular={expresionesRegulares.sexo}
-              />
-
-              <InputGeneral
                 estado={fechaNacimiento}
                 cambiarEstado={cambiarfechaNacimiento}
                 tipo="date"
-                label="fechaNacimiento"
-                placeholder="Introduzca la fecha de nacimiento"
+                label="Fecha de nacimiento"
+                placeholder="DD/MM/AAAA"
                 name="fechaNacimiento"
                 leyendaError="La fecha de nacimiento debe estar en el formato DD-MM-AAAA"
                 expresionRegular={expresionesRegulares.fechaNacimiento}
               />
 
               <InputGeneral
-                estado={disciplina}
-                cambiarEstado={cambiardisciplina}
+                estado={sexo}
+                cambiarEstado={cambiarsexo}
                 tipo="text"
-                label="disciplina"
-                placeholder="Introduzca la disciplina"
-                name="disciplina"
-                leyendaError="La disciplina debe contener entre 3 y 30 caracteres alfabéticos"
-                expresionRegular={expresionesRegulares.disciplina}
+                label="Sexo"
+                placeholder="Ejemplo: M o F"
+                name="sexo"
+                leyendaError="El sexo debe ser M o F"
+                expresionRegular={expresionesRegulares.sexo}
               />
-              <InputGeneral
-                estado={antecedente}
-                cambiarEstado={cambiarantecedente}
-                tipo="text"
-                label="antecedente"
-                placeholder="Introduzca el antecedente"
-                name="antecedente"
-                leyendaError="El antecedente no debe exceder los 200 caracteres"
-                expresionRegular={expresionesRegulares.antecedente}
-              />
-              <InputGeneral
-                estado={descripcion}
-                cambiarEstado={cambiardescripcion}
-                tipo="text"
-                label="descripcion"
-                placeholder="Introduzca alguna descripción"
-                name="descripcion"
-                leyendaError="La descripción no debe exceder los 500 caracteres"
-                expresionRegular={expresionesRegulares.descripcion}
-              />
+
               <InputGeneral
                 estado={altura}
                 cambiarEstado={cambiaraltura}
                 tipo="text"
-                label="altura"
-                placeholder="Altura"
+                label="Altura (cm)"
+                placeholder="Ejemplo: 175"
                 name="altura"
                 leyendaError="La altura debe ser un número en cm, opcionalmente con hasta 2 decimales"
                 expresionRegular={expresionesRegulares.altura}
               />
+
               <InputGeneral
                 estado={peso}
                 cambiarEstado={cambiarpeso}
                 tipo="text"
-                label="peso"
-                placeholder="Peso"
+                label="Peso (kg)"
+                placeholder="Ejemplo: 70"
                 name="peso"
                 leyendaError="El peso debe ser un número en kg, opcionalmente con hasta 2 decimales"
                 expresionRegular={expresionesRegulares.peso}
+              />
+
+              <InputGeneral
+                estado={disciplina}
+                cambiarEstado={cambiardisciplina}
+                tipo="text"
+                label="Disciplina"
+                placeholder="Ejemplo: Yoga, Boxeo, Pilates"
+                name="disciplina"
+                leyendaError="La disciplina debe contener entre 3 y 30 caracteres alfabéticos"
+                expresionRegular={expresionesRegulares.disciplina}
+              />
+
+              <InputGeneral
+                estado={antecedente}
+                cambiarEstado={cambiarantecedente}
+                tipo="text"
+                label="Antecedentes médicos"
+                placeholder="Ejemplo: Asma, Hipertensión"
+                name="antecedente"
+                leyendaError="El antecedente no debe exceder los 200 caracteres"
+                expresionRegular={expresionesRegulares.antecedente}
+              />
+
+              <InputGeneral
+                estado={descripcion}
+                cambiarEstado={cambiardescripcion}
+                tipo="text"
+                label="Descripción personal"
+                placeholder="Describe a tu cliente"
+                name="descripcion"
+                leyendaError="La descripción no debe exceder los 500 caracteres"
+                expresionRegular={expresionesRegulares.descripcion}
               />
             </Columna>
           </Formulario1>
@@ -801,44 +793,63 @@ const Cliente = () => {
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena el formulario correctamente.
+            <b>Error:</b> Por favor rellena los datos del cliente correctamente.
           </p>
         </MensajeError>
       )}
-
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalEditar()}> Cancelar </Button>
-        <Button color="primary">
-          Editar
-        </Button>
+        <div className="container-footer">
+        <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalEditar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button class="btn-agregar" onClick={""} type="submit">
+          Agregar
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" ></path>
+            </svg>
+          </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Cliente actualizado exitosamente!</MensajeExito>
+          )}
+        </div>
       </div>
-    </div>
   );
 
   function showQuestionDel() {
     Swal.fire({
-      title: "Seguro que desea Eliminar el Usuario?",
+      title: "¿Deseas eliminar este cliente?",
       showDenyButton: true,
-      confirmButtonText: "Eliminar",
-      denyButtonText: `Cancelar`,
+      denyButtonText: `No, cancelar`,
+      confirmButtonText: "Si, eliminar",
+      width: 'fixed',
+      height: '50%',
+      customClass: {
+        confirmButton: 'btn-eliminar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire("Eliminado Correctamente!", "", "success");
+        Swal.fire("Cliente eliminado correctamente!", "", "success");
         peticionDelete();
         //peticionDeleteKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios NO Guardados", "", "info");
+        Swal.fire("Cliente no ha sido eliminado", "", "info");
       }
     });
   }
 
   const bodyEliminar = (
     <div style={scrollVertical}>
-      <h3>Eliminar Usuario</h3>
-      <div className="relleno-general">
+      <h3 className="container-header"> 201 - Eliminar Cliente</h3>
+      <div className="relleno-eliminar">
         {" "}
-        General
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
@@ -846,8 +857,8 @@ const Cliente = () => {
                 estado={idCliente}
                 cambiarEstado={cambiaridCliente}
                 tipo="number"
-                label="idCliente"
-                placeholder="Ingrese el código de cliente"
+                label="Código de cliente"
+                placeholder="Ejemplo: 1"
                 name="idCliente"
                 leyendaError="El código debe ser un número entre 1 y 100 dígitos"
                 expresionRegular={expresionesRegulares.idCliente}
@@ -856,16 +867,21 @@ const Cliente = () => {
           </Formulario1>
         </div>
       </div>
-
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalEliminar()} color="success">
-          {" "}
-          Cancelar{" "}
-        </Button>
-        <Button color="success" onClick={() => showQuestionDel()}>
+        <div className="container-footer">
+        <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalEliminar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button className="btn-eliminar" onClick={() => showQuestionDel()}>
           Eliminar
-        </Button>
-      </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Cliente eliminado exitosamente!</MensajeExito>
+          )}
+        </div>
     </div>
   );
 
@@ -876,13 +892,11 @@ const Cliente = () => {
           200-Mantenimiento Clientes
         </h3>
       </div>
-      <div className="btn-agrega">
-        <Button
-          startIcon={<AddBox />}
-          onClick={() => abrirCerrarModalInsertar()}
-        >
-          Agregar Cliente
-        </Button>
+      <div> 
+      <button className="btn-añadir" onClick={() => abrirCerrarModalInsertar()}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56"><path fill="currentColor" d="M46.867 9.262c-2.39-2.39-5.765-2.766-9.75-2.766H18.836c-3.937 0-7.312.375-9.703 2.766S6.39 15.004 6.39 18.918v18.094c0 4.008.351 7.336 2.742 9.726s5.766 2.766 9.773 2.766h18.211c3.985 0 7.36-.375 9.75-2.766c2.391-2.39 2.742-5.718 2.742-9.726V18.988c0-4.008-.351-7.36-2.742-9.726m-1.031 9.07v19.313c0 2.437-.305 4.921-1.71 6.351c-1.43 1.406-3.962 1.734-6.376 1.734h-19.5c-2.414 0-4.945-.328-6.351-1.734c-1.43-1.43-1.735-3.914-1.735-6.352V18.403c0-2.46.305-4.992 1.711-6.398c1.43-1.43 3.984-1.734 6.445-1.734h19.43c2.414 0 4.945.328 6.375 1.734c1.406 1.43 1.711 3.914 1.711 6.328M28 40.504c.938 0 1.688-.727 1.688-1.664v-9.164h9.164c.937 0 1.687-.797 1.687-1.664c0-.914-.75-1.688-1.687-1.688h-9.164v-9.187c0-.938-.75-1.664-1.688-1.664a1.64 1.64 0 0 0-1.664 1.664v9.187h-9.164c-.938 0-1.688.774-1.688 1.688c0 .867.75 1.664 1.688 1.664h9.164v9.164c0 .937.727 1.664 1.664 1.664"></path></svg>
+       Añadir 
+        </button>
       </div>
       <br />
       <br />
@@ -893,12 +907,12 @@ const Cliente = () => {
         actions={[
           {
             icon: Edit,
-            tooltip: "Modificar Modificar",
+            tooltip: "Modificar",
             onClick: (event, rowData) => seleccionarCliente(rowData, "Editar"),
           },
           {
             icon: DeleteOutline,
-            tooltip: "Eliminar Cliente",
+            tooltip: "Eliminar",
             onClick: (event, rowData) =>
               seleccionarCliente(rowData, "Eliminar"),
           },
@@ -916,7 +930,17 @@ const Cliente = () => {
         }}
         localization={{
           header: { actions: "Acciones" },
-          toolbar: { searchPlaceholder: "Busqueda" },
+          toolbar: { searchPlaceholder: "Busqueda", columnsButton: "Mostrar columnas", },
+          selectedRows: {
+            text: "{0} fila seleccionada",  // Cambia aquí para español
+            textMultiple: "{0} filas seleccionadas", // Para múltiples filas seleccionadas
+          },
+      pagination: {
+        labelDisplayedRows: '{from}-{to} de {count}',
+        labelRowsSelect: 'filas',
+        labelRowsPerPage: 'Filas por página',
+      },
+  
         }}
       />
       <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar} style={modalStyles}>

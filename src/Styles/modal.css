@@ -1,43 +1,137 @@
-.btn {
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-base);
-  border-radius: var(--border-radius-lg);
+/*************** INICIO BOTONES AGREGAR**************/
+.btn-agregar {
+  background: var(--color-primary);
+  color: white;
+  font-family: var(--font-primary);
+  padding: 0.35em;
+  padding-left: 1.2em;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
   cursor: pointer;
-  transition: background-color var(--transition-duration) var(--transition-ease);
-}
-
-.btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-light);
-  float: right;
-  border-radius: var(--border-radius-lg);
-}
-
-.btn-secondary {
-  background-color: var(--color-secondary);
-  color: var(--color-light);
   float: right;
 }
 
+.btn-agregar .icon {
+  background: white;
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 0.7em;
+  right: 0.3em;
+  transition: all 0.3s;
+}
 
+.btn-agregar:hover .icon {
+  width: calc(100% - 0.6em);
+}
 
+.btn-agregar .icon svg {
+  width: 1.1em;
+  transition: transform 0.3s;
+  color: #7b52b9;
+}
 
+.btn-agregar:hover .icon svg {
+  transform: translateX(0.1em);
+}
 
-.btn-agrega{
+.btn-agregar:active .icon {
+  transform: scale(0.95);
+}
+/***************FIN BOTONES AGREGAR**************/
+
+/***************INICIO BOTONES CANCELAR**************/
+.btn-cancelar{
+  background: var(--color-primary);
+  color: white;
+  font-family: var(--font-primary);
+  padding: 0.35em;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: 3px solid white;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  height: 2.2em;
+  cursor: pointer;
+  float: left;
+}
+
+.btn-cancelar:hover{
   background-color: var(--color-text);
   color: var(--color-primary);
-  border-radius: 12px;
+}
+/***************FIN BOTONES CANCELAR**************/
+
+/***************INICIO BOTONES ELIMINAR**************/
+
+.btn-eliminar{
+  background: var(--color-secondary);
+  color: white;
+  font-family: var(--font-primary);
+  padding: 0.35em;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  border-radius: 0.9em;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  height: 2.2em;
+  cursor: pointer;
   float: right;
 }
 
-.btn-cancelar{
-  background-color: var(--color-primary); 
-  color: var(--color-text);
-  border-radius: var(--border-radius-md);
-  float: left;
-  border-color: var(--color-text);
-  border-style: solid;
+.btn-eliminar:hover{
+  background-color: var(--color-text);
+  color: var(--color-primary);
 }
+/***************FIN BOTONES ELIMINAR**************/
+
+/*************** INICIO BOTONES AÑADIR**************/
+.btn-añadir {
+  background: var(--color-primary);
+  color: white;
+  font-family: var(--font-primary);
+  padding: 0.35em;
+  padding-left: 1em;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  border-radius: 0.5em;
+  border: none;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding-right: 1em;
+  cursor: pointer;
+  float: right;
+}
+
+.btn-añadir:hover{
+  background-color: #7b52b9;
+  color: var(--color-primary);
+}
+/*************** FIN BOTONES AÑADIR**************/
+
 
 .MuiTableCell-root{
   width: auto-fit;
@@ -81,10 +175,10 @@
 
 /*********************** Modal *******************************/
 
-.container-fluid{
+/*.container-fluid{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
+}*/
 
 .container-header {
   background-color: var(--color-primary);
@@ -93,6 +187,7 @@
 	padding: 7% 5% 5% 5%;
   font-weight: bold;
   margin-top: -2%;
+  color: var(--color-text);
 }
 
 .branding1{
@@ -121,6 +216,17 @@
   height: auto-fit;
 	padding: 5% 5% 5% 5%;
   margin: 5% 5% 5% 5%;
+  color: var(--color-text);
+  font-weight: bold;
+}
+
+.relleno-eliminar{
+  background-color: var(--color-secondary);
+  width: auto-fit;
+  height: auto-fit;
+	padding: 5% 5% 5% 5%;
+  margin: 5% 5% 5% 5%;
+  color: var(--color-text);
   font-weight: bold;
 }
 
@@ -131,7 +237,3 @@
 	padding: 5% 5% 7% 5%;
   font-weight: bold;
 }
-
-
-
-

@@ -122,12 +122,11 @@ const FormularioTotales = styled.form`
 `;
 
 const Label = styled.label`
-  display: block;
-  font-weight: 700;
-  padding: 10px;
+  display: flex;
   min-height: 40px;
   cursor: pointer;
-  font-size: 80%;
+  align-items: center;
+  font-size: 5rem;
 
   ${props => props.$valido === 'false' && css`
     color: ${colores.error};
@@ -148,6 +147,7 @@ const Input = styled.input`
   transition: .3s ease all;
   border: 3px solid transparent;
   height: 25px;
+  margin-bottom: 1rem;
 
   &:focus {
     border: 3px solid ${colores.borde};
