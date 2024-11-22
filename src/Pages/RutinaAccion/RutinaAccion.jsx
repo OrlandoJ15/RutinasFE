@@ -445,18 +445,35 @@ const RutinaAccion = () => {
         <div className="container-fluid">
           <Formulario1>
             <Columna>
+            <InputGeneral
+                estado={setsAccion}
+                cambiarEstado={cambiarsetsAccion}
+                tipo="number"
+                label="	Número de sets"
+                placeholder="Ejemplo: 1"
+                name="setsAccion"
+                leyendaError="El número de sets debe ser un entero positivo menor a 1000."
+                expresionRegular={expresionesRegulares.setsAccion}
+              />
               <InputGeneral
-                estado={idRutinaAccion}
-                cambiarEstado={cambiaridRutinaAccion}
-                tipo="text"
-                label="Id Usuario"
-                placeholder="Introduzca Id Del Usuario"
-                name="idRutinaAccion"
-                leyendaError="El Id Del Usuario solo puede contener numeros."
-                expresionRegular={expresionesRegulares.idRutinaAccion}
-                onChange={''}
-                onBlur={''}
-                autofocus
+                estado={repsAccion}
+                cambiarEstado={cambiarrepsAccion}
+                tipo="number"
+                label="Repeticiones por set"
+                placeholder="Ejemplo: 12"
+                name="repsAccion"
+                leyendaError="El número de repeticiones debe ser un entero positivo menor a 1000."
+                expresionRegular={expresionesRegulares.repsAccion}
+              />
+              <InputGeneral
+                estado={pesoAccion}
+                cambiarEstado={cambiarpesoAccion}
+                tipo="number"
+                label="	Número de sets"
+                placeholder="Ejemplo: 70"
+                name="pesoAccion"
+                leyendaError="El peso debe ser un número menor a 1000."
+                expresionRegular={expresionesRegulares.pesoAccion}
               />
             </Columna>
           </Formulario1>
@@ -505,14 +522,34 @@ const RutinaAccion = () => {
           <Formulario1>
             <Columna>
             <InputGeneral
-                estado={idRutina}
-                cambiarEstado={cambiaridRutina}
+                estado={setsAccion}
+                cambiarEstado={cambiarsetsAccion}
                 tipo="number"
-                label="Código de la rutina"
+                label="	Número de sets"
                 placeholder="Ejemplo: 1"
-                name="idRutina"
-                leyendaError="El código debe ser un número entre 1 y 100 dígitos"
-                expresionRegular={expresionesRegulares.idRutina}
+                name="setsAccion"
+                leyendaError="El número de sets debe ser un entero positivo menor a 1000."
+                expresionRegular={expresionesRegulares.setsAccion}
+              />
+              <InputGeneral
+                estado={repsAccion}
+                cambiarEstado={cambiarrepsAccion}
+                tipo="number"
+                label="Repeticiones por set"
+                placeholder="Ejemplo: 12"
+                name="repsAccion"
+                leyendaError="El número de repeticiones debe ser un entero positivo menor a 1000."
+                expresionRegular={expresionesRegulares.repsAccion}
+              />
+              <InputGeneral
+                estado={pesoAccion}
+                cambiarEstado={cambiarpesoAccion}
+                tipo="number"
+                label="	Número de sets"
+                placeholder="Ejemplo: 70"
+                name="pesoAccion"
+                leyendaError="El peso debe ser un número menor a 1000."
+                expresionRegular={expresionesRegulares.pesoAccion}
               />
             </Columna>
           </Formulario1>
@@ -562,7 +599,7 @@ const RutinaAccion = () => {
                 estado={idRutina}
                 cambiarEstado={cambiaridRutina}
                 tipo="number"
-                label="Código de la rutina"
+                label="Código del detalle de rutina"
                 placeholder="Ejemplo: 1"
                 name="idRutina"
                 leyendaError="El código debe ser un número entre 1 y 100 dígitos"

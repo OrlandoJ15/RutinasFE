@@ -21,10 +21,10 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 //////////////////////////INICIA GRID INICIAL//////////////////////////
 
 const columnas = [
-  { title: "ID Entrenador", field: "idUsuario" },
+  { title: "ID Entrenador", field: "idUsuario", hidden:true },
   { title: "Nombre", field: "nombre" },
-  { title: "Email", field: "email" },
-  { title: "Telefono", field: "telefono" },
+  { title: "Correo Electrónico", field: "email" },
+  { title: "Teléfono", field: "telefono" },
   { title: "Creado", field: "creado", hidden:true  },
   { title: "Clave", field: "clave", hidden:true },
   { title: "Rol", field: "rol", hidden:true  },
@@ -206,35 +206,24 @@ const Usuario = () => {
 
   function showQuestionPost() {
     Swal.fire({
-      title: "¿Desea guardar estos cambios?",
+      title: "¿Desea agregar este entrenador?",
       showDenyButton: true,
-      confirmButtonText: "Guardar",
-      denyButtonText: "Cancelar",
+      confirmButtonText: "Si, agregar",
+      denyButtonText: "No, cancelar",
+      customClass: {
+        confirmButton: 'btn-agregar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Guardado Correctamente!", "", "success");
+        Swal.fire("Entrenador agregado correctamente!", "", "success");
         peticionPost();
         //peticionPostKardex();
       } else if (result.isDenied) {
-        Swal.fire("La acción se canceló", "", "info");
+        Swal.fire("No se agregó el entrenador", "", "info");
       }
     });
   }
-
-  // const peticionPostKardex = async () => {
-  //   const options = {
-  //     Serie: Serie.campo,
-  //     Numero: Numero.campo,
-  //     Nombre: Nombre.campo,
-  //     Monto: Monto.campo,
-  //     IdUsuario: IdUsuario.campo,
-  //   };
-
-  //   await axios.post(baseUrlPostKardex, options).then((response) => {
-  //     setData(data.concat(response.data));
-  //     abrirCerrarModalInsertar();
-  //   });
-  // };
 
   //REVISAR LOS PARENTESIS
 
@@ -268,17 +257,21 @@ const Usuario = () => {
   //REVISAR LAS COMILLAS
   function showQuestionPut() {
     Swal.fire({
-      title: "¿Desea guardar estos cambios?",
+      title: "¿Desea editar la información del entrenador?",
       showDenyButton: true,
-      confirmButtonText: "Aceptar",
-      denyButtonText: "Cancelar",
+      confirmButtonText: "Si, editar",
+      denyButtonText: "No, cancelar",
+      customClass: {
+        confirmButton: 'btn-agregar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Guardado Correctamente!", "", "success");
+        Swal.fire("Guardada Correctamente!", "", "success");
         peticionPut();
         //peticionPutKardex();
       } else if (result.isDenied) {
-        Swal.fire("Cambios No Guardados", "", "info");
+        Swal.fire("No se editaron los campos", "", "info");
       }
     });
   }
@@ -416,7 +409,8 @@ const Usuario = () => {
     overflowX: "hidden",
     overflowY: "scroll",
     position: "relative",
-    backgroundColor: "rgb(255, 255, 255)",
+    inset: "0",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   };
 
   const modalStyles = {
@@ -441,28 +435,16 @@ const Usuario = () => {
     padding: "0 0 0 25%",
   };
 
-  const ListStyleButton = {
-    margin: "20px 0px 0px 0px",
-  };
-
-  const StyleLabelAfterButton = {
-    margin: "0px 0px 10px 0px",
-  };
-
-  const Text = {
-    fontWeight: "bold",
-  };
-
   ////////////////////////////CSS SCROLL, MODAL////////////////////////////
 
   /////////////////////////INCLUIR ARTICULOS////////////////////////////
 
   const bodyInsertar = (
     <div style={scrollVertical}>
-      <h3>Agregar Entrenador</h3>
+      <h3 className="container-header"> 201 - Agregar Entrenador</h3>
       <div className="relleno-general">
         {" "}
-        General
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
@@ -470,97 +452,75 @@ const Usuario = () => {
                 estado={nombre}
                 cambiarEstado={cambiarnombre}
                 tipo="text"
-                label="nombre"
-                placeholder="Introduzca el nombre del entrenador"
+                label="Nombre completo"
+                placeholder="Ejemplo: Juan Pérez"
                 name="nombre"
-                leyendaError="El nombre solo puede contener letras y espacios."
+                leyendaError="El nombre debe tener entre 3 y 50 caracteres alfabéticos."
                 expresionRegular={expresionesRegulares.nombre}
               />
               <InputGeneral
                 estado={email}
                 cambiarEstado={cambiaremail}
                 tipo="email"
-                label="email"
-                placeholder="Introduzca el correo electronico"
+                label="Correo electrónico"
+                placeholder="nombre@dominio.com"
                 name="email"
-                leyendaError="El email debe incluir @"
+                leyendaError="El correo electrónico debe ser válido, ejemplo: nombre@dominio.com."
                 expresionRegular={expresionesRegulares.email}
               />
               <InputGeneral
                 estado={telefono}
                 cambiarEstado={cambiartelefono}
-                tipo="number"
-                label="telefono"
-                placeholder="Introduzca el teléfono del entrenador"
-                name="telefono"
-                leyendaError="Número de telefono en formato 1234-1234."
-                expresionRegular={expresionesRegulares.telefono}
-              />
-              <InputGeneral
-                estado={clave}
-                cambiarEstado={""}
-                tipo="password"
-                label="clave"
-                placeholder="Introduzca su contraseña"
-                name="clave"
-                leyendaError="La contraseña debe contener minimo 8 caracteres"
-                expresionRegular={expresionesRegulares.clave}
-              />
-              <InputGeneral
-                estado={rol}
-                cambiarEstado={cambiarrol}
                 tipo="text"
-                label="rol"
-                placeholder="Introduzca su rol"
-                name="rol"
-                leyendaError="El rol solo puede contener letras"
-                expresionRegular={expresionesRegulares.rol}
-              />
-              <InputGeneral
-                estado={creado}
-                cambiarEstado={cambiarcreado}
-                tipo="date"
-                label="creado"
-                placeholder="Fecha de creación del usuario"
-                name="creado"
-                leyendaError="Inserte una fecha valida"
-                expresionRegular={expresionesRegulares.creado}
+                label="Número de teléfono"
+                placeholder="1456-7890"
+                name="telefono"
+                leyendaError="Ingrese un número de teléfono válido de 8 a 12 dígitos"
+                expresionRegular={expresionesRegulares.telefono}
               />
             </Columna>
           </Formulario1>
-        </div>
+          </div>
       </div>
 
       {formularioValido === false && (
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena el formulario correctamente.
+            <b>Error:</b> Por favor rellena la información del entrenador correctamente.
           </p>
         </MensajeError>
       )}
 
-      <div align="right">
-        <Button color="success" onClick={() => abrirCerrarModalInsertar()}>
-          {" "}
-          Cancelar{" "}
-        </Button>
-        <Button color="success" onClick={onsubmitpost} type="submit">
-          {" "}
-          Insertar
-        </Button>
-        {formularioValido === true && (
-          <MensajeExito>Entrenador agregado exitosamente!</MensajeExito>
-        )}
-      </div>
+      <div className="container-footer">
+          <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalInsertar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button class="btn-agregar" onClick={""} type="submit">
+          Agregar
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" ></path>
+            </svg>
+          </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Entrenador agregado exitosamente!</MensajeExito>
+          )}
+        </div>
     </div>
   );
 
   const bodyEditar = (
     <div style={scrollVertical}>
-      <h3>Edite el entrenador</h3>
+      <h3 className="container-header"> 201 - Modificar Entrenador</h3>
       <div className="relleno-general">
-        General
+        {" "}
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
@@ -568,98 +528,97 @@ const Usuario = () => {
                 estado={nombre}
                 cambiarEstado={cambiarnombre}
                 tipo="text"
-                label="nombre"
-                placeholder="Introduzca el nombre del entrenador"
+                label="Nombre completo"
+                placeholder="Ejemplo: Juan Pérez"
                 name="nombre"
-                leyendaError="El nombre solo puede contener letras y espacios."
+                leyendaError="El nombre debe tener entre 3 y 50 caracteres alfabéticos."
                 expresionRegular={expresionesRegulares.nombre}
               />
               <InputGeneral
                 estado={email}
                 cambiarEstado={cambiaremail}
                 tipo="email"
-                label="email"
-                placeholder="Introduzca El email Electronico"
+                label="Correo electrónico"
+                placeholder="nombre@dominio.com"
                 name="email"
-                leyendaError="El Formato Del email No Es Valido"
+                leyendaError="El correo electrónico debe ser válido, ejemplo: nombre@dominio.com."
                 expresionRegular={expresionesRegulares.email}
               />
               <InputGeneral
                 estado={telefono}
                 cambiarEstado={cambiartelefono}
-                tipo="number"
-                label="telefono"
-                placeholder="Introduzca el teléfono del entrenador"
-                name="telefono"
-                leyendaError="El teléfono solo puede contener letras y espacios."
-                expresionRegular={expresionesRegulares.telefono}
-              />
-              <InputGeneral
-                estado={clave}
-                cambiarEstado={""}
-                tipo="password"
-                label="clave"
-                placeholder="Introduzca su contraseña"
-                name="clave"
-                leyendaError="La contraseña debe contener minimo 8 caracteres"
-                expresionRegular={expresionesRegulares.clave}
-              />
-              <InputGeneral
-                estado={rol}
-                cambiarEstado={cambiarrol}
                 tipo="text"
-                label="rol"
-                placeholder="Introduzca su rol"
-                name="rol"
-                leyendaError="El rol solo puede contener letras"
-                expresionRegular={expresionesRegulares.rol}
+                label="Número de teléfono"
+                placeholder="1456-7890"
+                name="telefono"
+                leyendaError="Ingrese un número de teléfono válido de 8 a 12 dígitos"
+                expresionRegular={expresionesRegulares.telefono}
               />
             </Columna>
           </Formulario1>
-        </div>
+          </div>
       </div>
       {formularioValido === false && (
         <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
-            <b>Error:</b> Por favor rellena el formulario correctamente.
+            <b>Error:</b> Por favor rellena la información del entrenador correctamente.
           </p>
         </MensajeError>
       )}
-
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalEditar()}> Cancelar </Button>
-        <Button color="primary" onClick={""}>
-          Editar
-        </Button>
+        <div className="container-footer">
+        <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalEditar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button class="btn-agregar" onClick={""} type="submit">
+          Agregar
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" ></path>
+            </svg>
+          </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Entrenador actualizado exitosamente!</MensajeExito>
+          )}
+        </div>
       </div>
-    </div>
   );
 
   function showQuestionDel() {
     Swal.fire({
       title: "¿Deseas eliminar este entrenador?",
       showDenyButton: true,
-      confirmButtonText: "Eliminar",
-      denyButtonText: `Cancelar`,
+      denyButtonText: `No, cancelar`,
+      confirmButtonText: "Si, eliminar",
+      width: 'fixed',
+      height: '50%',
+      customClass: {
+        confirmButton: 'btn-eliminar', // Clase personalizada para el botón
+        denyButton: 'btn-cancelar'    // Clase personalizada para el botón cancelar
+      },
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire("Eliminado Correctamente!", "", "success");
+        Swal.fire("Entrenador eliminado correctamente!", "", "success");
         peticionDelete();
         //peticionDeleteKardex();
       } else if (result.isDenied) {
-        Swal.fire("La acción se canceló", "", "info");
+        Swal.fire("Entrenador no ha sido eliminada", "", "info");
       }
     });
   }
 
   const bodyEliminar = (
     <div style={scrollVertical}>
-      <h3>Eliminar entrenador</h3>
-      <div className="relleno-general">
+      <h3 className="container-header"> 201 - Eliminar Entrenador</h3>
+      <div className="relleno-eliminar">
         {" "}
-        General
+        202 - General
         <div className="container-fluid">
           <Formulario1>
             <Columna>
@@ -667,26 +626,31 @@ const Usuario = () => {
                 estado={idUsuario}
                 cambiarEstado={cambiaridUsuario}
                 tipo="number"
-                label="idUsuario"
-                placeholder="Introduzca el código del entrenador"
+                label="Código de entrenador"
+                placeholder="Ejemplo: 1"
                 name="idUsuario"
-                leyendaError="El código no existe"
+                leyendaError="El código debe ser un número entre 1 y 100 dígitos"
                 expresionRegular={expresionesRegulares.idUsuario}
               />
             </Columna>
           </Formulario1>
-        </div>
+          </div>
       </div>
-
-      <div align="right">
-        <Button onClick={() => abrirCerrarModalEliminar()} color="success">
-          {" "}
-          Cancelar{" "}
-        </Button>
-        <Button color="success" onClick={() => showQuestionDel()}>
+        <div className="container-footer">
+        <div>
+        <button className="btn-cancelar" onClick={() => abrirCerrarModalEliminar()} >
+        Cancelar
+        </button>
+          </div>
+          <div>
+        <button className="btn-eliminar" onClick={() => showQuestionDel()}>
           Eliminar
-        </Button>
-      </div>
+        </button>
+          </div>
+          {formularioValido === true && (
+            <MensajeExito>Entrenador eliminado exitosamente!</MensajeExito>
+          )}
+        </div>
     </div>
   );
 
@@ -768,38 +732,36 @@ const Usuario = () => {
     <div className="Cliente">
       <div className="banner">
         <h3>
-          <b>200-Mantenimiento Usuarios</b>
+          200-Mantenimiento Entrenador
         </h3>
       </div>
-      <div className="btn-agrega">
-        <Button
-          startIcon={<AddBox />}
-          onClick={() => abrirCerrarModalInsertar()}
-        >
-          Agregar Usuario
-        </Button>
+      <div> 
+      <button className="btn-añadir" onClick={() => abrirCerrarModalInsertar()}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56"><path fill="currentColor" d="M46.867 9.262c-2.39-2.39-5.765-2.766-9.75-2.766H18.836c-3.937 0-7.312.375-9.703 2.766S6.39 15.004 6.39 18.918v18.094c0 4.008.351 7.336 2.742 9.726s5.766 2.766 9.773 2.766h18.211c3.985 0 7.36-.375 9.75-2.766c2.391-2.39 2.742-5.718 2.742-9.726V18.988c0-4.008-.351-7.36-2.742-9.726m-1.031 9.07v19.313c0 2.437-.305 4.921-1.71 6.351c-1.43 1.406-3.962 1.734-6.376 1.734h-19.5c-2.414 0-4.945-.328-6.351-1.734c-1.43-1.43-1.735-3.914-1.735-6.352V18.403c0-2.46.305-4.992 1.711-6.398c1.43-1.43 3.984-1.734 6.445-1.734h19.43c2.414 0 4.945.328 6.375 1.734c1.406 1.43 1.711 3.914 1.711 6.328M28 40.504c.938 0 1.688-.727 1.688-1.664v-9.164h9.164c.937 0 1.687-.797 1.687-1.664c0-.914-.75-1.688-1.687-1.688h-9.164v-9.187c0-.938-.75-1.664-1.688-1.664a1.64 1.64 0 0 0-1.664 1.664v9.187h-9.164c-.938 0-1.688.774-1.688 1.688c0 .867.75 1.664 1.688 1.664h9.164v9.164c0 .937.727 1.664 1.664 1.664"></path></svg>
+       Añadir 
+        </button>
       </div>
       <br />
       <br />
       <MaterialTable
         columns={columnas}
         data={data}
-        title="Usuarios"
+        title="Entrenadores"
         actions={[
           {
             icon: Edit,
-            tooltip: "Modificar Modificar",
+            tooltip: "Modificar",
             onClick: (event, rowData) => seleccionarUsuario(rowData, "Editar"),
           },
           {
             icon: DeleteOutline,
-            tooltip: "Eliminar Usuario",
+            tooltip: "Eliminar",
             onClick: (event, rowData) =>
               seleccionarUsuario(rowData, "Eliminar"),
           },
           {
             icon: Password,
-            tooltip: "Cambiar Contrasena",
+            tooltip: "Cambiar Contraseña",
             onClick: (event, rowData) => abrirCerrarModalCambioClave(),
           },
         ]}
@@ -816,17 +778,27 @@ const Usuario = () => {
         }}
         localization={{
           header: { actions: "Acciones" },
-          toolbar: { searchPlaceholder: "Busqueda" },
+          toolbar: { searchPlaceholder: "Busqueda", columnsButton: "Mostrar columnas", },
+          selectedRows: {
+            text: "{0} fila seleccionada",  // Cambia aquí para español
+            textMultiple: "{0} filas seleccionadas", // Para múltiples filas seleccionadas
+          },
+      pagination: {
+        labelDisplayedRows: '{from}-{to} de {count}',
+        labelRowsSelect: 'filas',
+        labelRowsPerPage: 'Filas por página',
+      },
+  
         }}
       />
 
-      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar}>
+      <Modal open={modalInsertar} onClose={abrirCerrarModalInsertar} style={modalStyles}>
         {bodyInsertar}
       </Modal>
-      <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
+      <Modal open={modalEditar} onClose={abrirCerrarModalEditar} style={modalStyles}>
         {bodyEditar}
       </Modal>
-      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar}>
+      <Modal open={modalEliminar} onClose={abrirCerrarModalEliminar} style={modalStylesDelete}>
         {bodyEliminar}
       </Modal>
     </div>
