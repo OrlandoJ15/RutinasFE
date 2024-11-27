@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import "../../Styles/variables.css";
 
 const colores = {
   borde: "#0075FF",
@@ -148,6 +149,7 @@ const Input = styled.input`
   border: 3px solid transparent;
   height: 25px;
   margin-bottom: 1rem;
+  font-family: 'Cooper Hewitt';
 
   &:focus {
     border: 3px solid ${colores.borde};
