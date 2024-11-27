@@ -1,10 +1,11 @@
 /*************** INICIO BOTONES AGREGAR**************/
 .btn-agregar {
-  background: var(--color-primary);
-  color: white;
+  background: var(--color-text);
+  color: var(--color-primary);
   font-family: var(--font-primary);
   padding: 0.35em;
-  padding-left: 1.2em;
+  padding-left: 1rem;
+  padding-right: 1rem;
   font-size: var(--font-size-md);
   font-weight: 500;
   border-radius: 0.9em;
@@ -13,49 +14,29 @@
   align-items: center;
   overflow: hidden;
   position: relative;
-  height: 2.8em;
-  padding-right: 3.3em;
+  height: 2.2em;
   cursor: pointer;
   float: right;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-agregar .icon {
-  background: white;
-  margin-left: 1em;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.2em;
-  width: 2.2em;
-  border-radius: 0.7em;
-  right: 0.3em;
-  transition: all 0.3s;
+.btn-agregar:hover {
+  background-color: var(--color-text);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
 
-.btn-agregar:hover .icon {
-  width: calc(100% - 0.6em);
+.btn-agregar:active {
+  transform: scale(0.98) translateY(2px); /* Se hunde ligeramente */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más pequeña */
 }
 
-.btn-agregar .icon svg {
-  width: 1.1em;
-  transition: transform 0.3s;
-  color: #7b52b9;
-}
-
-.btn-agregar:hover .icon svg {
-  transform: translateX(0.1em);
-}
-
-.btn-agregar:active .icon {
-  transform: scale(0.95);
-}
 /***************FIN BOTONES AGREGAR**************/
 
 /***************INICIO BOTONES CANCELAR**************/
 .btn-cancelar{
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text);
   font-family: var(--font-primary);
   padding: 0.35em;
   padding-left: 1rem;
@@ -63,7 +44,7 @@
   font-size: var(--font-size-md);
   font-weight: 500;
   border-radius: 0.9em;
-  border: 3px solid white;
+  border: 3px solid var(--color-text);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -109,25 +90,27 @@
 /*************** INICIO BOTONES AÑADIR**************/
 .btn-añadir {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text);
   font-family: var(--font-primary);
   padding: 0.35em;
-  padding-left: 1em;
+  padding-left: 1rem;
+  padding-right: 1rem;
   font-size: var(--font-size-md);
   font-weight: 500;
-  border-radius: 0.5em;
+  border-radius: 0.9em;
   border: none;
   display: flex;
   align-items: center;
   overflow: hidden;
   position: relative;
-  padding-right: 1em;
+  height: 2.2em;
   cursor: pointer;
   float: right;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-añadir:hover{
-  background-color: #7b52b9;
+  background-color: var(--color-text);
   color: var(--color-primary);
 }
 /*************** FIN BOTONES AÑADIR**************/
